@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class hurglblrt : MonoBehaviour {
+public class playerStats : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
