@@ -12,8 +12,7 @@ public class targetState : MonoBehaviour {
 
     void redActive () 
     {
-    //player.life -1
-    //player.respawn(respawnlocation)
+        playerStats.Player.looseLife();
     }
 
     void orangeActive()

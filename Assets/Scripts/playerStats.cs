@@ -5,7 +5,8 @@ public class playerStats : MonoBehaviour {
 
     int Lives = 3;
     bool _controlState;
-    
+    public static playerStats Player;
+
     bool controlState 
     {
         get
@@ -26,14 +27,30 @@ public class playerStats : MonoBehaviour {
                     //disable player controls from working
                 }
             }
-            else
-            {
-
-            }
 
             _controlState = value;
         }
 
     }
 
+    void Start()
+    {
+        Player = this;
+    }
+
+      public void looseLife ()
+    {
+           if (Lives > 0)
+           {
+               controlState = false;
+               Lives -= 1;
+               //respawn (in controls)
+               controlState = true;
+           }
+           else
+           {
+               controlState = false;
+               //endgame
+           }
+    }
 }
