@@ -3,38 +3,32 @@ using System.Collections;
 
 public class targetState : MonoBehaviour {
 
-    public bool red;
-    public bool orange;
-    public bool yellow;
-    public bool green;
-    public bool blue;
-    public bool purple;
+   public int Status = 1;
+   Timer buffer = new Timer();
 
-    void redActive () 
+    void Start ()
+   {
+       buffer.setTimer(3);
+   }
+    
+    void Update ()
     {
-        playerStats.Player.looseLife();
+        if (gameObject.GetComponent<playerMove>().isActive == true && buffer.Ok() == true)
+        {
+            switch (Status)
+            {
+                case 1:
+                    //blank & safe
+                    break;
+                case 2:
+                    buffer.setTimer(3);
+                    playerStats.Player.looseLife();
+                    Debug.Log("ow!");
+                    break;                
+                
+            }
+        }
     }
 
-    void orangeActive()
-    {
-        //something else
-    }
-
-    void yellowActive ()
-    {
-        //etc
-    }
-
-    void greenActive()
-    {
-        //etc
-    }
-    void blueActive()
-    {
-        //etc
-    }
-    void purpleActive()
-    {
-        //etc
-    }
+   
 }
