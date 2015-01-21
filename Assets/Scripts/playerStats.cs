@@ -47,10 +47,12 @@ public class playerStats : MonoBehaviour {
                //respawn (in controls)
                controlState = true;
            }
+
            else
            {
                controlState = false;
                //endgame
            }
+
     }
 }

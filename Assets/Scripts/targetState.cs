@@ -25,4 +25,16 @@ public class targetState : MonoBehaviour {
         //etc
     }
 
+    void greenActive()
+    {
+        //etc
+    }
+    void blueActive()
+    {
+        //etc
+    }
+    void purpleActive()
+    {
+        //etc
+    }
 }
