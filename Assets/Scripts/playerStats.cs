@@ -4,6 +4,7 @@ using System.Collections;
 public class playerStats : MonoBehaviour {
     //Manages lives. Pretty simple! Can be used for a score later? Perhaps?
     public int Lives = 3;
+    public int maxLives = 3;
     public static playerStats Player;
     
     void Awake()
@@ -11,9 +12,9 @@ public class playerStats : MonoBehaviour {
         Player = this;
     }
 
-    public void resetLife (int maxlives)
+    public void resetLife ()
     {
-        Lives = maxlives;
+        Lives = maxLives;
     }
 
       public void looseLife ()

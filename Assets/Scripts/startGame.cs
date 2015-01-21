@@ -9,7 +9,7 @@ public class startGame : MonoBehaviour {
 	void Start () {
 
         startG = this;
-        playerStats.Player.resetLife(3);
+        playerStats.Player.resetLife();
         spawnPoint.GetComponent<playerMove>().isActive = true;
     	}
 	
