@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Timer
 {
-
+    //Timer function to be used in other classes. Please do /not/ touch this.
     float timerstart = 0;
     float input = 0;
     public bool inuse = false;

@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class targetState : MonoBehaviour {
-
+    //Tells the target what effects it should do.
    public int Status = 1;
    Timer buffer = new Timer();
 

@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class playerStats : MonoBehaviour {
-
+    //Manages lives. Pretty simple! Can be used for a score later? Perhaps?
     public int Lives = 3;
     public static playerStats Player;
     

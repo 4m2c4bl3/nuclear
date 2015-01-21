@@ -2,7 +2,8 @@ fileFormatVersion: 2
 guid: cfcc6366d51137d48a2b97a64d6aaf5f
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - lifecounter: {fileID: 2800000, guid: 8b099c57c78796048b4e2f476b010cc8, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

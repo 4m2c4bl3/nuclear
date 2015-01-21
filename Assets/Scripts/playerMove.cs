@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class playerMove : MonoBehaviour {
-
+    //The "player movement" script. Says if the player is "on" this object or not, and moves the player around to other objects. Handles respawn move as well.
     public GameObject upTarget;
     public GameObject downTarget;
     public GameObject leftTarget;
@@ -33,6 +33,7 @@ public class playerMove : MonoBehaviour {
     public void reSpawn()
     {
         startGame.startG.spawnPoint.GetComponent<playerMove>().isActive = true;
+        playerStats.Player.resetLife(3);
         delay.setTimer(2);
 
         if (startGame.startG.spawnPoint != this)
@@ -44,39 +45,43 @@ public class playerMove : MonoBehaviour {
 	void Update () {
         if (isActive)
         {
-
             if (playerStats.Player.Lives <= 0)
             {
                 reSpawn();
             }
-
-            if (Input.GetKeyDown(KeyCode.LeftArrow) && leftTarget != null && delay.Ok() == true)
+            if (delay.Ok() == true)
             {
-                delay.setTimer(0.5f);
-                leftTarget.GetComponent<playerMove>().isActive = true;
-                isActive = false;
-            }
+                if (Input.GetKeyDown(KeyCode.LeftArrow) && leftTarget != null)
+                {
+                    leftTarget.GetComponent<playerMove>().isActive = true;
+                    isActive = false;
+                    delay.setTimer(0.5f);
+                }
 
-            if (Input.GetKeyDown(KeyCode.RightArrow) && rightTarget != null && delay.Ok() == true)
-            {
-                delay.setTimer(0.5f);
-                rightTarget.GetComponent<playerMove>().isActive = true;
-                isActive = false;
-            }
+                if (Input.GetKeyDown(KeyCode.RightArrow) && rightTarget != null)
+                {
+                    rightTarget.GetComponent<playerMove>().isActive = true;
+                    isActive = false;
+                    delay.setTimer(0.5f);
+                }
 
-            if (Input.GetKeyDown(KeyCode.UpArrow) && upTarget != null && delay.Ok() == true)
-            {
-                delay.setTimer(0.5f);
-                upTarget.GetComponent<playerMove>().isActive = true;
-                isActive = false;
-            }
+                if (Input.GetKeyDown(KeyCode.UpArrow) && upTarget != null)
+                {
+                    upTarget.GetComponent<playerMove>().isActive = true;
+                    isActive = false;
+                    delay.setTimer(0.5f);
+                }
 
-            if (Input.GetKeyDown(KeyCode.DownArrow) && downTarget != null && delay.Ok() == true)
-            {
-                delay.setTimer(0.5f);
-                downTarget.GetComponent<playerMove>().isActive = true;
-                isActive = false;                
+                if (Input.GetKeyDown(KeyCode.DownArrow) && downTarget != null)
+                {
+                    downTarget.GetComponent<playerMove>().isActive = true;
+                    isActive = false;
+                    delay.setTimer(0.5f);
+                }
             }
+            
+
+           
         }      
 	
 	}
