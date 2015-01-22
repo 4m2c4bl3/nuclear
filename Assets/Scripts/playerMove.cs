@@ -9,7 +9,6 @@ public class playerMove : MonoBehaviour {
     public GameObject rightTarget;
     public bool _isActive;
     Timer delay = new Timer();
-
     public float respawnPause = 2f;
     public float movePause = 0.5f;
 
@@ -47,8 +46,8 @@ public class playerMove : MonoBehaviour {
 
     void moveTo(GameObject target)
     {
-        target.GetComponent<playerMove>().isActive = true;
         isActive = false; 
+        target.GetComponent<playerMove>().isActive = true;
         delay.setTimer(movePause);        
     }
 
@@ -81,10 +80,7 @@ public class playerMove : MonoBehaviour {
                 {
                     moveTo(downTarget);
                 }
-            }
-            
-
-           
+            }                       
         }      
 	
 	}

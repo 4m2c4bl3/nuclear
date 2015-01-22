@@ -7,7 +7,7 @@ public class playerStats : MonoBehaviour {
     public int maxLives = 3;
     public static playerStats Player;
     
-    void Awake()
+    void Awake ()
     {
         Player = this;
     }

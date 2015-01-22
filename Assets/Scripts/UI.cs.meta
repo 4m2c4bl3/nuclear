@@ -4,6 +4,6 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - lifecounter: {fileID: 2800000, guid: 8b099c57c78796048b4e2f476b010cc8, type: 3}
-  executionOrder: 180
+  executionOrder: 0
   icon: {instanceID: 0}
   userData: 
