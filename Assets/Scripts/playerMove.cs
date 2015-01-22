@@ -34,9 +34,9 @@ public class playerMove : MonoBehaviour {
 
     public void reSpawn()
     {
+        delay.setTimer(respawnPause); 
         startGame.startG.spawnPoint.GetComponent<playerMove>().isActive = true;
-        playerStats.Player.resetLife();
-        delay.setTimer(respawnPause);
+        playerStats.Player.resetLife();        
 
         if (startGame.startG.spawnPoint != this)
         {
@@ -46,9 +46,9 @@ public class playerMove : MonoBehaviour {
 
     void moveTo(GameObject target)
     {
-        isActive = false; 
-        target.GetComponent<playerMove>().isActive = true;
-        delay.setTimer(movePause);        
+        delay.setTimer(movePause);  
+        isActive = false;         
+        target.GetComponent<playerMove>().isActive = true;              
     }
 
 	void Update () {
