@@ -18,10 +18,10 @@ public class playerMove : MonoBehaviour {
             return _isActive;
         }
 
-        set 
+        set
         {
+            delay.setTimer(playerStats.Player.movePause); //SOLVED THE WEIRD JUMPING! AAHAAAAAA
             (gameObject.GetComponent("Halo") as Behaviour).enabled = value;
-
             _isActive = value;
         }
     }
@@ -45,7 +45,6 @@ public class playerMove : MonoBehaviour {
 
     public void moveTo(GameObject target)
     {
-        delay.setTimer(playerStats.Player.movePause);  
         isActive = false;         
         target.GetComponent<playerMove>().isActive = true;              
     }
