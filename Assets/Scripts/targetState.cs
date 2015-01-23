@@ -6,10 +6,7 @@ public class targetState : MonoBehaviour {
    public int Status = 1;
    Timer buffer = new Timer();
    //float damageTick = 3f;
-   GameObject upTarget;
-   GameObject downTarget;
-   GameObject leftTarget;
-   GameObject rightTarget;
+   public GameObject lastTarget;
    GameObject teleportOption;
    public Color c1 = new Color32(58, 58, 58, 255);
    public Color c2 = new Color32(99, 199, 141, 255);
@@ -17,12 +14,7 @@ public class targetState : MonoBehaviour {
    public Color c4 = new Color32(95, 125, 195, 255);
 
     void Start ()
-   {
-       leftTarget = gameObject.GetComponent<playerMove>().leftTarget;
-       rightTarget = gameObject.GetComponent<playerMove>().rightTarget;
-       upTarget = gameObject.GetComponent<playerMove>().upTarget;
-       downTarget = gameObject.GetComponent<playerMove>().downTarget;
-
+   { 
        renderer.material.shader = Shader.Find("Self-Illumin/Diffuse");
        buffer.setTimer(3);
        resetColor();        
@@ -41,11 +33,11 @@ public class targetState : MonoBehaviour {
                 //damage when you first land on it. parts marked out made it a DOT effect, we can use one or both options.
                 //buffer.setTimer(damageTick);
                 playerStats.Player.looseLife();
-                Debug.Log("ow!");
                 break;
             case 4:
                 //double push
-                doublePush(); //THIS IS BROKEN RIGHT NOW SORRY!!!!!!!!!!!
+                Debug.Log("getting ready to push...");
+                gameObject.GetComponent<playerMove>().doublePush(); 
                 break;
             case 5:
                 //pushback
@@ -67,25 +59,6 @@ public class targetState : MonoBehaviour {
                 //just increase/decrease the delay of playerStats.Player.playerMove
                 break;
 
-        }
-    }
-    void doublePush ()
-    {
-        if (playerStats.Player.lastMove == "left" && gameObject.GetComponent<playerMove>().canMove(leftTarget) == true)
-        {
-            gameObject.GetComponent<playerMove>().moveTo(leftTarget);
-        }
-        if (playerStats.Player.lastMove == "right" && gameObject.GetComponent<playerMove>().canMove(rightTarget) == true)
-        {
-            gameObject.GetComponent<playerMove>().moveTo(rightTarget);
-        }
-        if (playerStats.Player.lastMove == "up" && gameObject.GetComponent<playerMove>().canMove(upTarget) == true)
-        {
-            gameObject.GetComponent<playerMove>().moveTo(upTarget);
-        }
-        if (playerStats.Player.lastMove == "down" && gameObject.GetComponent<playerMove>().canMove(downTarget) == true)
-        {
-            gameObject.GetComponent<playerMove>().moveTo(downTarget);           
         }
     }
     void resetColor()

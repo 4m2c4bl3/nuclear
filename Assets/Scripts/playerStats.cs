@@ -9,10 +9,12 @@ public class playerStats : MonoBehaviour {
     public int Lives = 3;
     public int maxLives = 3;
     public static playerStats Player;
-    public string lastMove = "none";
     public float respawnPause = 2f;
     public float movePause = 0.5f;
-    
+    public moveDir lastMove;
+
+    public enum moveDir { None, Up, Down, Left, Right}
+        
     void Awake ()
     {
         Player = this;
