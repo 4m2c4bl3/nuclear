@@ -10,6 +10,8 @@ public class playerStats : MonoBehaviour {
     public int maxLives = 3;
     public static playerStats Player;
     public string lastMove = "none";
+    public float respawnPause = 2f;
+    public float movePause = 0.5f;
     
     void Awake ()
     {

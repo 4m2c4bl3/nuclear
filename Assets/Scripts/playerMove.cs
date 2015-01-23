@@ -10,8 +10,6 @@ public class playerMove : MonoBehaviour {
     public GameObject rightTarget;
     public bool _isActive;
     Timer delay = new Timer();
-    public float respawnPause = 2f;
-    public float movePause = 0.5f;
 
     public bool isActive
     {
@@ -30,12 +28,12 @@ public class playerMove : MonoBehaviour {
     
     void Start()
     {
-        delay.setTimer(respawnPause);
+        delay.setTimer(playerStats.Player.respawnPause);
     }
 
     public void reSpawn()
     {
-        delay.setTimer(respawnPause); 
+        delay.setTimer(playerStats.Player.respawnPause); 
         startGame.startG.spawnPoint.GetComponent<playerMove>().isActive = true;
         playerStats.Player.resetLife();        
 
@@ -47,7 +45,7 @@ public class playerMove : MonoBehaviour {
 
     public void moveTo(GameObject target)
     {
-        delay.setTimer(movePause);  
+        delay.setTimer(playerStats.Player.movePause);  
         isActive = false;         
         target.GetComponent<playerMove>().isActive = true;              
     }
