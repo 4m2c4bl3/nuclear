@@ -11,6 +11,7 @@ public class playerMove : MonoBehaviour {
     public GameObject rightTarget;
     public bool _isActive;
     bool pushing;
+    public string pushType = "none";
     Timer delay = new Timer();
 
     public bool isActive
@@ -30,10 +31,14 @@ public class playerMove : MonoBehaviour {
     
     public bool canMove (GameObject target)
     {
-        if (target != null && target.GetComponent<targetState>().Status != 1)
+        if (target != null)
         {
-             return true;
-       
+            if (target.GetComponent<targetState>().Status != 1)
+            {
+                Debug.Log("Player can move.");
+                return true;       
+            }
+            return false;
         }
             return false;
       
@@ -64,50 +69,73 @@ public class playerMove : MonoBehaviour {
         target.GetComponent<targetState>().applyEffects();
     }
 
-    public void doublePush()
+    public void movePush(string type)
     {
         if (pushing == false)
         {
         pushing = true;
-        Debug.Log("..almost ready to push..");
         Debug.Log(playerStats.Player.lastMove);
         delay.setTimer(playerStats.Player.movePause);
         }
         
         if (pushing && delay.Ok() == true)
         {
-            if (playerStats.Player.lastMove == playerStats.moveDir.Left && canMove(leftTarget) == true)
+            if (playerStats.Player.lastMove == playerStats.moveDir.Left)
             {
-                Debug.Log("..push!");
-                moveTo(leftTarget);
+                if (type == "back" && canMove(rightTarget) == true)
+                {
+                    moveTo(rightTarget);
+                }
+                if (type == "forward" && canMove(leftTarget) == true)
+                {
+                    moveTo(leftTarget);
+                }
                 pushing = false;
             }
-            if (playerStats.Player.lastMove == playerStats.moveDir.Right && canMove(rightTarget) == true)
+            if (playerStats.Player.lastMove == playerStats.moveDir.Right)
             {
-                Debug.Log("..push!");
-                moveTo(rightTarget);
+                if (type == "back" && canMove(leftTarget) == true)
+                {
+                    moveTo(leftTarget);
+                }
+                if (type == "forward" && canMove(rightTarget) == true)
+                {
+                    moveTo(rightTarget);
+                }
                 pushing = false;
             }
-            if (playerStats.Player.lastMove == playerStats.moveDir.Up && canMove(upTarget) == true)
+            if (playerStats.Player.lastMove == playerStats.moveDir.Up)
             {
-                Debug.Log("..push!");
-                moveTo(upTarget);
+                if (type == "back" && canMove(downTarget) == true)
+                {
+                    moveTo(downTarget);
+                }
+                if (type == "forward" && canMove(upTarget) == true)
+                {
+                    moveTo(upTarget);
+                }
                 pushing = false;
             }
-            if (playerStats.Player.lastMove == playerStats.moveDir.Down && canMove(downTarget) == true)
+            if (playerStats.Player.lastMove == playerStats.moveDir.Down)
             {
-                Debug.Log("..push!");
-                moveTo(downTarget);
+                if (type == "back" && canMove(upTarget) == true)
+                {
+                    moveTo(upTarget);
+                }
+                if (type == "forward" && canMove(downTarget) == true)
+                {
+                    moveTo(downTarget);
+                } 
                 pushing = false;
             }
         }
         
-    }    
+    }
 
 	void Update () {
         if (pushing)
         {
-            doublePush();
+            movePush(pushType);
         }
         if (isActive)
         {

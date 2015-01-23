@@ -12,6 +12,7 @@ public class targetState : MonoBehaviour {
    public Color c2 = new Color32(99, 199, 141, 255);
    public Color c3 = new Color32(189, 95, 195, 255);
    public Color c4 = new Color32(95, 125, 195, 255);
+   public Color c5 = new Color32(195, 138, 95, 255);
 
     void Start ()
    { 
@@ -35,14 +36,14 @@ public class targetState : MonoBehaviour {
                 playerStats.Player.looseLife();
                 break;
             case 4:
-                //double push
-                Debug.Log("getting ready to push...");
-                gameObject.GetComponent<playerMove>().doublePush(); 
+                //push forward
+                gameObject.GetComponent<playerMove>().pushType = "forward";
+                gameObject.GetComponent<playerMove>().movePush(gameObject.GetComponent<playerMove>().pushType); 
                 break;
             case 5:
-                //pushback
-                //(if Player.playerMove.lastMove == "up")
-                //gameObject.GetComponent<playerMove>().moveTo(downTarget);
+                //push back
+                gameObject.GetComponent<playerMove>().pushType = "back";
+                gameObject.GetComponent<playerMove>().movePush(gameObject.GetComponent<playerMove>().pushType); 
                 break;
             case 6:
                 //random teleport :s
@@ -83,6 +84,10 @@ public class targetState : MonoBehaviour {
             case 4:
                 //special effect
                 renderer.material.SetColor("_Color", c4);
+                break;
+            case 5:
+                //special effect
+                renderer.material.SetColor("_Color", c5);
                 break;
         }
     }
