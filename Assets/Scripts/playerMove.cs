@@ -10,6 +10,7 @@ public class playerMove : MonoBehaviour {
     public GameObject leftTarget;
     public GameObject rightTarget;
     public bool _isActive;
+    bool pushing;
     Timer delay = new Timer();
 
     public bool isActive
@@ -65,30 +66,49 @@ public class playerMove : MonoBehaviour {
 
     public void doublePush()
     {
+        if (pushing == false)
+        {
+        pushing = true;
         Debug.Log("..almost ready to push..");
-        if (playerStats.Player.lastMove == playerStats.moveDir.Left && canMove(leftTarget) == true)
-        {
-            Debug.Log("..push!");
-            moveTo(leftTarget);
+        Debug.Log(playerStats.Player.lastMove);
+        delay.setTimer(playerStats.Player.movePause);
         }
-        if (playerStats.Player.lastMove == playerStats.moveDir.Right && canMove(rightTarget) == true)
+        
+        if (pushing && delay.Ok() == true)
         {
-            Debug.Log("..push!");
-            moveTo(rightTarget);
+            if (playerStats.Player.lastMove == playerStats.moveDir.Left && canMove(leftTarget) == true)
+            {
+                Debug.Log("..push!");
+                moveTo(leftTarget);
+                pushing = false;
+            }
+            if (playerStats.Player.lastMove == playerStats.moveDir.Right && canMove(rightTarget) == true)
+            {
+                Debug.Log("..push!");
+                moveTo(rightTarget);
+                pushing = false;
+            }
+            if (playerStats.Player.lastMove == playerStats.moveDir.Up && canMove(upTarget) == true)
+            {
+                Debug.Log("..push!");
+                moveTo(upTarget);
+                pushing = false;
+            }
+            if (playerStats.Player.lastMove == playerStats.moveDir.Down && canMove(downTarget) == true)
+            {
+                Debug.Log("..push!");
+                moveTo(downTarget);
+                pushing = false;
+            }
         }
-        if (playerStats.Player.lastMove == playerStats.moveDir.Up && canMove(upTarget) == true)
-        {
-            Debug.Log("..push!");
-            moveTo(upTarget);
-        }
-        if (playerStats.Player.lastMove == playerStats.moveDir.Down && canMove(downTarget) == true)
-        {
-            Debug.Log("..push!");
-            moveTo(downTarget);
-        }
+        
     }    
 
 	void Update () {
+        if (pushing)
+        {
+            doublePush();
+        }
         if (isActive)
         {
             if (playerStats.Player.Lives <= 0)
@@ -100,26 +120,26 @@ public class playerMove : MonoBehaviour {
             {
                 if (Input.GetKeyDown(KeyCode.LeftArrow) && canMove(leftTarget) == true)
                 {
-                    moveTo(leftTarget);
                     playerStats.Player.lastMove = playerStats.moveDir.Left;
+                    moveTo(leftTarget);
                 }
 
                 if (Input.GetKeyDown(KeyCode.RightArrow) && canMove(rightTarget) == true)
                 {
-                    moveTo(rightTarget);
                     playerStats.Player.lastMove = playerStats.moveDir.Right;
+                    moveTo(rightTarget);
                 }
 
                 if (Input.GetKeyDown(KeyCode.UpArrow) && canMove(upTarget) == true)
                 {
-                    moveTo(upTarget);
-                    playerStats.Player.lastMove = playerStats.moveDir.Up;                
+                    playerStats.Player.lastMove = playerStats.moveDir.Up; 
+                    moveTo(upTarget);               
                 }
 
                 if (Input.GetKeyDown(KeyCode.DownArrow) && canMove(downTarget) == true)
                 {
-                    moveTo(downTarget);
                     playerStats.Player.lastMove = playerStats.moveDir.Down;
+                    moveTo(downTarget);
                 }
             }                       
         }      
