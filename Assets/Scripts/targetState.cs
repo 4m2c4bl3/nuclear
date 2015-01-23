@@ -5,16 +5,16 @@ public class targetState : MonoBehaviour {
     //Tells the target what effects it should do.
    public int Status = 1;
    Timer buffer = new Timer();
-   float damageTick = 3f;
-   GameObject leftTarget;
-   GameObject rightTarget;
+   //float damageTick = 3f;
    GameObject upTarget;
    GameObject downTarget;
-   public GameObject teleportOption;
-   public Color effect0 = new Color32(99, 199, 141, 255);
-   public Color effect1 = new Color32(189, 95, 195, 255);
-   public Color effect2 = new Color32(95, 125, 195, 255);
-   public Color effect3 = new Color32(95, 125, 195, 255);
+   GameObject leftTarget;
+   GameObject rightTarget;
+   GameObject teleportOption;
+   public Color c1 = new Color32(58, 58, 58, 255);
+   public Color c2 = new Color32(99, 199, 141, 255);
+   public Color c3 = new Color32(189, 95, 195, 255);
+   public Color c4 = new Color32(95, 125, 195, 255);
 
     void Start ()
    {
@@ -27,7 +27,7 @@ public class targetState : MonoBehaviour {
        buffer.setTimer(3);
        resetColor();        
    }
-    void  applyEffects()
+    public void  applyEffects()
     {
         switch (Status)
         {
@@ -38,32 +38,14 @@ public class targetState : MonoBehaviour {
                 //safe to pass through, no effect
                 break;
             case 3:
-                buffer.setTimer(damageTick);
+                //damage when you first land on it. parts marked out made it a DOT effect, we can use one or both options.
+                //buffer.setTimer(damageTick);
                 playerStats.Player.looseLife();
                 Debug.Log("ow!");
                 break;
             case 4:
                 //double push
-                if (playerStats.Player.lastMove == "left")
-                {
-                    gameObject.GetComponent<playerMove>().moveTo(leftTarget);
-                    break;
-                }
-                if (playerStats.Player.lastMove == "right")
-                {
-                    gameObject.GetComponent<playerMove>().moveTo(rightTarget);
-                    break;
-                }
-                if (playerStats.Player.lastMove == "up")
-                {
-                    gameObject.GetComponent<playerMove>().moveTo(upTarget);
-                    break;
-                }
-                if (playerStats.Player.lastMove == "down")
-                {
-                    gameObject.GetComponent<playerMove>().moveTo(downTarget);
-                    break;
-                }
+                doublePush(); //THIS IS BROKEN RIGHT NOW SORRY!!!!!!!!!!!
                 break;
             case 5:
                 //pushback
@@ -87,25 +69,47 @@ public class targetState : MonoBehaviour {
 
         }
     }
-
+    void doublePush ()
+    {
+        if (playerStats.Player.lastMove == "left" && gameObject.GetComponent<playerMove>().canMove(leftTarget) == true)
+        {
+            gameObject.GetComponent<playerMove>().moveTo(leftTarget);
+        }
+        if (playerStats.Player.lastMove == "right" && gameObject.GetComponent<playerMove>().canMove(rightTarget) == true)
+        {
+            gameObject.GetComponent<playerMove>().moveTo(rightTarget);
+        }
+        if (playerStats.Player.lastMove == "up" && gameObject.GetComponent<playerMove>().canMove(upTarget) == true)
+        {
+            gameObject.GetComponent<playerMove>().moveTo(upTarget);
+        }
+        if (playerStats.Player.lastMove == "down" && gameObject.GetComponent<playerMove>().canMove(downTarget) == true)
+        {
+            gameObject.GetComponent<playerMove>().moveTo(downTarget);           
+        }
+    }
     void resetColor()
     {
         switch (Status)
         {
             case 1:
-                //inactive, no color
+                //inactive default grey
+                renderer.material.SetColor("_Color", c1);
                 break;
 
-            case 2:               
-                renderer.material.SetColor("_Color", effect0);
+            case 2:         
+                //active safe green
+                renderer.material.SetColor("_Color", c2);
                 break;
 
             case 3:
-                renderer.material.SetColor("_Color", effect1);
+                //special effect
+                renderer.material.SetColor("_Color", c3);
                 break;
 
             case 4:
-                renderer.material.SetColor("_Color", effect2);
+                //special effect
+                renderer.material.SetColor("_Color", c4);
                 break;
         }
     }
@@ -114,13 +118,14 @@ public class targetState : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
+            Debug.Log("Refreshing colors.");
             resetColor();
         }
 
-        if (gameObject.GetComponent<playerMove>().isActive == true && buffer.Ok() == true)
-        {
-            applyEffects();
-        }
+        //if (gameObject.GetComponent<playerMove>().isActive == true && buffer.Ok() == true)
+       // {
+            //applyEffects();
+       // }
     }
 
    

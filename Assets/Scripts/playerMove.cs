@@ -3,6 +3,7 @@ using System.Collections;
 
 public class playerMove : MonoBehaviour {
     //The "player movement" script. Says if the player is "on" this object or not, and moves the player around to other objects. 
+    //Calls targetState effects to happen on move.
     //Handles respawn move as well.
     public GameObject upTarget;
     public GameObject downTarget;
@@ -22,10 +23,26 @@ public class playerMove : MonoBehaviour {
         {
             delay.setTimer(playerStats.Player.movePause); //SOLVED THE WEIRD JUMPING! AAHAAAAAA
             (gameObject.GetComponent("Halo") as Behaviour).enabled = value;
+            if (value == true)
+            {
+                gameObject.GetComponent<targetState>().applyEffects();
+            }
             _isActive = value;
         }
     }
     
+    public bool canMove (GameObject target)
+    {
+        if (target != null && target.GetComponent<targetState>().Status != 1)
+        {
+             return true;
+       
+        }
+            return false;
+      
+
+    }
+
     void Start()
     {
         delay.setTimer(playerStats.Player.respawnPause);
@@ -59,25 +76,25 @@ public class playerMove : MonoBehaviour {
 
             if (delay.Ok() == true)
             {
-                if (Input.GetKeyDown(KeyCode.LeftArrow) && leftTarget != null)
+                if (Input.GetKeyDown(KeyCode.LeftArrow) && canMove(leftTarget) == true)
                 {
                     moveTo(leftTarget);
                     playerStats.Player.lastMove = "left";
                 }
 
-                if (Input.GetKeyDown(KeyCode.RightArrow) && rightTarget != null)
+                if (Input.GetKeyDown(KeyCode.RightArrow) && canMove(rightTarget) == true)
                 {
                     moveTo(rightTarget);
                     playerStats.Player.lastMove = "right";
                 }
 
-                if (Input.GetKeyDown(KeyCode.UpArrow) && upTarget != null)
+                if (Input.GetKeyDown(KeyCode.UpArrow) && canMove(upTarget) == true)
                 {
                     moveTo(upTarget);
                     playerStats.Player.lastMove = "up";                   
                 }
 
-                if (Input.GetKeyDown(KeyCode.DownArrow) && downTarget != null)
+                if (Input.GetKeyDown(KeyCode.DownArrow) && canMove(downTarget) == true)
                 {
                     moveTo(downTarget);
                     playerStats.Player.lastMove = "down";
