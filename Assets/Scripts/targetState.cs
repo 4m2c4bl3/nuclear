@@ -6,6 +6,7 @@ public class targetState : MonoBehaviour {
    public int Status = 1;
    Timer buffer = new Timer();
    //float damageTick = 3f;
+   public float speedChange = 0.2f;
    public GameObject lastTarget;
    GameObject teleportOption;
    public Color c1 = new Color32(58, 58, 58, 255);
@@ -13,6 +14,8 @@ public class targetState : MonoBehaviour {
    public Color c3 = new Color32(189, 95, 195, 255);
    public Color c4 = new Color32(95, 125, 195, 255);
    public Color c5 = new Color32(195, 138, 95, 255);
+    //make new colors for new features by copypasta and editing in the hex codes. (r,g,b,a)
+    //assign the colors down in the renderColor function
 
     void Start ()
    { 
@@ -48,7 +51,7 @@ public class targetState : MonoBehaviour {
             case 6:
                 //random teleport :s
                 //generate random > http://answers.unity3d.com/questions/300880/choose-a-random-game-object-based-on-tag.html ?
-                // if random.targetState.Status == 0 then redo ^
+                // if random.targetState.Status == 0||4||5 then redo ^ (let's not have people be able to teleport on push objects, that's too confusing)
                 // else gameObject.playerMove.isActive = false && random.playerMove.isActive = true
                 break;
             case 7:
@@ -56,8 +59,9 @@ public class targetState : MonoBehaviour {
                 //gameObject.playerMove.isActive = false && teleport.playerMove.isActive = true
                 break;
             case 8:
-                //slow or speed movement
-                //just increase/decrease the delay of playerStats.Player.playerMove
+                //slow or speed movement  0.2f = average
+                //we can have this as a timed effect or wears off after x amount of moves
+                playerStats.Player.movePause = speedChange;
                 break;
 
         }

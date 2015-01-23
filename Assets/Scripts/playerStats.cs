@@ -10,7 +10,7 @@ public class playerStats : MonoBehaviour {
     public int maxLives = 3;
     public static playerStats Player;
     public float respawnPause = 2f;
-    public float movePause = 0.5f;
+    public float movePause = 0.2f;
     public moveDir lastMove;
 
     public enum moveDir { None, Up, Down, Left, Right}
