@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class playerMove : MonoBehaviour {
-    //The "player movement" script. Says if the player is "on" this object or not, and moves the player around to other objects. Handles respawn move as well.
+    //The "player movement" script. Says if the player is "on" this object or not, and moves the player around to other objects. 
+    //Handles respawn move as well.
     public GameObject upTarget;
     public GameObject downTarget;
     public GameObject leftTarget;
@@ -44,7 +45,7 @@ public class playerMove : MonoBehaviour {
         }
     }
 
-    void moveTo(GameObject target)
+    public void moveTo(GameObject target)
     {
         delay.setTimer(movePause);  
         isActive = false;         
@@ -64,21 +65,25 @@ public class playerMove : MonoBehaviour {
                 if (Input.GetKeyDown(KeyCode.LeftArrow) && leftTarget != null)
                 {
                     moveTo(leftTarget);
+                    playerStats.Player.lastMove = "left";
                 }
 
                 if (Input.GetKeyDown(KeyCode.RightArrow) && rightTarget != null)
                 {
                     moveTo(rightTarget);
+                    playerStats.Player.lastMove = "right";
                 }
 
                 if (Input.GetKeyDown(KeyCode.UpArrow) && upTarget != null)
                 {
-                    moveTo(upTarget);                    
+                    moveTo(upTarget);
+                    playerStats.Player.lastMove = "up";                   
                 }
 
                 if (Input.GetKeyDown(KeyCode.DownArrow) && downTarget != null)
                 {
                     moveTo(downTarget);
+                    playerStats.Player.lastMove = "down";
                 }
             }                       
         }      

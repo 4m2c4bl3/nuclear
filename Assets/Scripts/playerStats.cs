@@ -2,10 +2,14 @@
 using System.Collections;
 
 public class playerStats : MonoBehaviour {
-    //Manages lives. Pretty simple! Can be used for a score later? Perhaps?
+    //Manages lives. 
+    //Keeps track of the player's last moved direction.
+    //can be called as a reference in any other script - use this for something that relates to the player, not the location it's in.
+    //call using playerMove.Player.(function or w/e name goes here)
     public int Lives = 3;
     public int maxLives = 3;
     public static playerStats Player;
+    public string lastMove = "none";
     
     void Awake ()
     {
