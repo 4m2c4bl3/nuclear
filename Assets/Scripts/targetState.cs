@@ -7,7 +7,7 @@ public class targetState : MonoBehaviour {
    public int Status = 1;
    Timer buffer = new Timer();
    public GameObject teleportOption;
-   public Color effect0 = new Color32(99,199,141,255);
+   public Color effect0 = new Color32(99, 199, 141, 255);
    public Color effect1 = new Color32(189, 95, 195, 255);
    public Color effect2 = new Color32(95, 125, 195, 255);
    public Color effect3 = new Color32(95, 125, 195, 255);
