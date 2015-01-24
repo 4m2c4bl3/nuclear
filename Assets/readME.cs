@@ -13,7 +13,9 @@ public class readME : MonoBehaviour {
      *      active, use the 'target state' script's 'current status' 
      *      option.
      *      
-     * 
+     *      When creating a new scene please add it to sceneManager
+     *      in the update function, the same way demoscene_1 has
+     *      been added. 
      * 
      *      
      *      Please do not place a statsAndDisplay prefab in any scene
