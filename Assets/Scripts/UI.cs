@@ -3,13 +3,13 @@ using System.Collections;
 
 public class UI : MonoBehaviour {
     //User Interfaaace. :3c
-    //For all scenes, what it displays depends on the name of the object it's attached to.
+    //Changes depending on what scene is up via sceneManager
     public Color lives;
     public Texture2D lifecounter;
     
     void OnGUI()
     {
-        if (gameObject.name == "playerAll")
+        if (sceneManager.manager.curScene == sceneManager.allScenes.Level1)
         {
         GUI.color = lives;
 
@@ -31,11 +31,11 @@ public class UI : MonoBehaviour {
             GUI.Label(new Rect((Screen.width / 2) - 30, 0, 30, 30), lifecounter);
         }
         }
-        if (gameObject.name == "mainMenu")
+        if (sceneManager.manager.curScene == sceneManager.allScenes.Menu)
         {
             //draw main menu buttons
         }
-        if (gameObject.name == "gameOverMenu")
+        if (sceneManager.manager.curScene == sceneManager.allScenes.GameOver)
         {
             //draw game over buttons
         }

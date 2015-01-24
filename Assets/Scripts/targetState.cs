@@ -3,7 +3,7 @@ using System.Collections;
 
 public class targetState : MonoBehaviour {
     //Tells the target what effects it should do.
-   public int Status = 1;
+    public statusOptions currentStatus;
    Timer buffer = new Timer();
    //float damageTick = 3f;
    public float speedChange = 0.2f;
@@ -14,9 +14,10 @@ public class targetState : MonoBehaviour {
    public Color c3 = new Color32(189, 95, 195, 255);
    public Color c4 = new Color32(95, 125, 195, 255);
    public Color c5 = new Color32(195, 138, 95, 255);
+
     //make new colors for new features by copypasta and editing in the hex codes. (r,g,b,a)
     //assign the colors down in the renderColor function
-
+   public enum statusOptions {Inactive, Safe, Damaging, PushForward, PushBack, ChangeSpeed, Undeveloped }
     void Start ()
    { 
        renderer.material.shader = Shader.Find("Self-Illumin/Diffuse");
@@ -25,74 +26,77 @@ public class targetState : MonoBehaviour {
    }
     public void  applyEffects()
     {
-        switch (Status)
+        if (currentStatus == statusOptions.Damaging)
         {
-            case 1:
-                //cannot pass onto this square
-                break;
-            case 2:
-                //safe to pass through, no effect
-                break;
-            case 3:
-                //damage when you first land on it. parts marked out made it a DOT effect, we can use one or both options.
-                //buffer.setTimer(damageTick);
-                playerStats.Player.looseLife();
-                break;
-            case 4:
-                //push forward
-                gameObject.GetComponent<playerMove>().pushType = "forward";
-                gameObject.GetComponent<playerMove>().movePush(gameObject.GetComponent<playerMove>().pushType); 
-                break;
-            case 5:
-                //push back
-                gameObject.GetComponent<playerMove>().pushType = "back";
-                gameObject.GetComponent<playerMove>().movePush(gameObject.GetComponent<playerMove>().pushType); 
-                break;
-            case 6:
-                //random teleport :s
-                //generate random > http://answers.unity3d.com/questions/300880/choose-a-random-game-object-based-on-tag.html ?
-                // if random.targetState.Status == 0||4||5 then redo ^ (let's not have people be able to teleport on push objects, that's too confusing)
-                // else gameObject.playerMove.isActive = false && random.playerMove.isActive = true
-                break;
-            case 7:
-                //non-random teleport
-                //gameObject.playerMove.isActive = false && teleport.playerMove.isActive = true
-                break;
-            case 8:
-                //slow or speed movement  0.2f = average
-                //we can have this as a timed effect or wears off after x amount of moves
-                playerStats.Player.movePause = speedChange;
-                break;
-
+            //lose one life when moving onto
+            playerStats.Player.looseLife();
         }
+        if (currentStatus == statusOptions.PushForward)
+        {
+            //pushes players one more direction forward if possible
+            gameObject.GetComponent<playerMove>().pushType = "forward";
+            gameObject.GetComponent<playerMove>().movePush(gameObject.GetComponent<playerMove>().pushType); 
+        }
+        if (currentStatus == statusOptions.PushBack)
+        {
+            //pushes players back where they came
+            gameObject.GetComponent<playerMove>().pushType = "back";
+            gameObject.GetComponent<playerMove>().movePush(gameObject.GetComponent<playerMove>().pushType); 
+        }
+        if (currentStatus == statusOptions.ChangeSpeed)
+        {
+            //slow or speed movement  0.2f = average
+            //we can have this as a timed effect or wears off after x amount of moves
+            playerStats.Player.movePause = speedChange;
+        }
+        if (currentStatus == statusOptions.Undeveloped)
+        {
+            //random teleport :s
+            //generate random > http://answers.unity3d.com/questions/300880/choose-a-random-game-object-based-on-tag.html ?
+            // if random.targetState.Status == 0||4||5 then redo ^ (let's not have people be able to teleport on push objects, that's too confusing)
+            // else gameObject.playerMove.isActive = false && random.playerMove.isActive = true
+
+            //non-random teleport
+            //gameObject.playerMove.isActive = false && teleport.playerMove.isActive = true
+        }
+     
     }
     void resetColor()
     {
-        switch (Status)
-        {
-            case 1:
-                //inactive default grey
-                renderer.material.SetColor("_Color", c1);
-                break;
 
-            case 2:         
+        if (currentStatus == statusOptions.Inactive)
+        {
+             //inactive default grey
+                renderer.material.SetColor("_Color", c1);               
+        }
+        if (currentStatus == statusOptions.Safe)
+        {            
                 //active safe green
                 renderer.material.SetColor("_Color", c2);
-                break;
+        }
+        if (currentStatus == statusOptions.Damaging)
+        {
+            //special effect
+            renderer.material.SetColor("_Color", c3);
+        }
+        
+        if (currentStatus == statusOptions.PushForward)
+        {
+            //special effect
+            renderer.material.SetColor("_Color", c4);
+        }
+        if (currentStatus == statusOptions.PushBack)
+        {
+            //special effect
+            renderer.material.SetColor("_Color", c5);
+        }
+        if (currentStatus == statusOptions.ChangeSpeed)
+        {
 
-            case 3:
-                //special effect
-                renderer.material.SetColor("_Color", c3);
-                break;
+        }
+        if (currentStatus == statusOptions.Undeveloped)
+        {
 
-            case 4:
-                //special effect
-                renderer.material.SetColor("_Color", c4);
-                break;
-            case 5:
-                //special effect
-                renderer.material.SetColor("_Color", c5);
-                break;
         }
     }
     

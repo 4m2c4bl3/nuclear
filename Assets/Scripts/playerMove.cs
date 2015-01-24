@@ -33,7 +33,7 @@ public class playerMove : MonoBehaviour {
     {
         if (target != null)
         {
-            if (target.GetComponent<targetState>().Status != 1)
+            if (target.GetComponent<targetState>().currentStatus != targetState.statusOptions.Inactive)
             {
                 Debug.Log("Player can move.");
                 return true;       
