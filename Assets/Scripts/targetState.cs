@@ -9,11 +9,12 @@ public class targetState : MonoBehaviour {
    public float speedChange = 0.2f;
    public GameObject lastTarget;
    GameObject teleportOption;
-   public Color c1 = new Color32(58, 58, 58, 255);
-   public Color c2 = new Color32(99, 199, 141, 255);
-   public Color c3 = new Color32(189, 95, 195, 255);
-   public Color c4 = new Color32(95, 125, 195, 255);
-   public Color c5 = new Color32(195, 138, 95, 255);
+   public Color Inactive = new Color32(58, 58, 58, 255);
+   public Color Safe = new Color32(59, 255, 0, 255);
+   public Color Damaging = new Color32(239, 0, 112, 255);
+   public Color PushForward = new Color32(84, 255, 253, 255);
+   public Color PushBack = new Color32(250, 255, 15, 255);
+   public Color ChangeSpeed = new Color32(233, 96, 49, 255);
 
     //make new colors for new features by copypasta and editing in the hex codes. (r,g,b,a)
     //assign the colors down in the renderColor function
@@ -67,32 +68,33 @@ public class targetState : MonoBehaviour {
         if (currentStatus == statusOptions.Inactive)
         {
              //inactive default grey
-                renderer.material.SetColor("_Color", c1);               
+            renderer.material.SetColor("_Color", Inactive);               
         }
         if (currentStatus == statusOptions.Safe)
         {            
                 //active safe green
-                renderer.material.SetColor("_Color", c2);
+            renderer.material.SetColor("_Color", Safe);
         }
         if (currentStatus == statusOptions.Damaging)
         {
             //special effect
-            renderer.material.SetColor("_Color", c3);
+            renderer.material.SetColor("_Color", Damaging);
         }
         
         if (currentStatus == statusOptions.PushForward)
         {
             //special effect
-            renderer.material.SetColor("_Color", c4);
+            renderer.material.SetColor("_Color", PushForward);
         }
         if (currentStatus == statusOptions.PushBack)
         {
             //special effect
-            renderer.material.SetColor("_Color", c5);
+            renderer.material.SetColor("_Color", PushBack);
         }
         if (currentStatus == statusOptions.ChangeSpeed)
         {
-
+            //special effect
+            renderer.material.SetColor("_Color", ChangeSpeed);
         }
         if (currentStatus == statusOptions.Undeveloped)
         {

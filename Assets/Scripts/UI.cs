@@ -4,7 +4,7 @@ using System.Collections;
 public class UI : MonoBehaviour {
     //User Interfaaace. :3c
     //Changes depending on what scene is up via sceneManager
-    public Color lives;
+    public Color lives = new Color32(59, 255, 0, 255);
     public Texture2D lifecounter;
     
     void OnGUI()

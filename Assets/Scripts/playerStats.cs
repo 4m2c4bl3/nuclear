@@ -12,12 +12,19 @@ public class playerStats : MonoBehaviour {
     public float respawnPause = 2f;
     public float movePause = 0.2f;
     public moveDir lastMove;
+    int totalDeaths;
+    int lostLives;
+    //int playerScore;  maybe?
 
     public enum moveDir { None, Up, Down, Left, Right}
         
     void Awake ()
     {
         Player = this;
+    }
+    public void isDead ()
+    {
+        totalDeaths++;
     }
 
     public void resetLife ()
@@ -29,9 +36,14 @@ public class playerStats : MonoBehaviour {
     {
            if (Lives > 0)
            {
-               Lives -= 1;               
+               Lives -= 1;
+               lostLives++;
            }
 
 
     }
+    void Update ()
+      {
+        //playerScore = (1000 + 1000/level complete) - (lostlives) - (totalDeathsx100) ?? maybe + for hiting good powerups as well
+      }
 }

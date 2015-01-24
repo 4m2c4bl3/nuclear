@@ -11,6 +11,7 @@ public class playerMove : MonoBehaviour {
     public GameObject rightTarget;
     public bool _isActive;
     bool pushing;
+    bool respawning;
     public string pushType = "none";
     Timer delay = new Timer();
 
@@ -52,14 +53,22 @@ public class playerMove : MonoBehaviour {
 
     public void reSpawn()
     {
-        delay.setTimer(playerStats.Player.respawnPause); 
-        startGame.startG.spawnPoint.GetComponent<playerMove>().isActive = true;
-        playerStats.Player.resetLife();        
-
-        if (startGame.startG.spawnPoint != this)
+        if (respawning == false)
         {
-            isActive = false;
-        }
+            respawning = true;
+            delay.setTimer(playerStats.Player.respawnPause);
+        }        
+        if (delay.Ok() == true && respawning == true)
+        {
+            if (startGame.startG.spawnPoint != this)
+            {
+                isActive = false;
+            }      
+            startGame.startG.spawnPoint.GetComponent<playerMove>().isActive = true;
+            playerStats.Player.resetLife();
+            delay.setTimer(playerStats.Player.respawnPause);
+            respawning = false;
+        }         
     }
 
     public void moveTo(GameObject target)
@@ -141,6 +150,7 @@ public class playerMove : MonoBehaviour {
         {
             if (playerStats.Player.Lives <= 0)
             {
+                playerStats.Player.isDead();
                 reSpawn();
             }
 
