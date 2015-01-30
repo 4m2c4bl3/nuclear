@@ -12,13 +12,13 @@ public class sceneManager : MonoBehaviour {
         manager = this;
     }
 
-	 public enum allScenes { None, Menu, Level1, GameOver}
+	 public enum allScenes { None, Menu, Level, GameOver}
 
     void Update ()
      {
-        if (Application.loadedLevelName == "demoscene_1")
+        if (Application.loadedLevelName == "demo_scene")
         {
-            curScene = allScenes.Level1;
+            curScene = allScenes.Level;
         }
      }
 
