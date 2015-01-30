@@ -9,7 +9,7 @@ public class UI : MonoBehaviour {
     
     void OnGUI()
     {
-        if (sceneManager.manager.curScene == sceneManager.allScenes.Level)
+        if (sceneManager.manager.curScene == sceneManager.allScenes.Level1)
         {
         GUI.color = lives;
 
