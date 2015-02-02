@@ -15,10 +15,11 @@ public class targetState : MonoBehaviour {
    public Color PushForward = new Color32(84, 255, 253, 255);
    public Color PushBack = new Color32(250, 255, 15, 255);
    public Color ChangeSpeed = new Color32(233, 96, 49, 255);
+   public string nextLevelName = null;
 
     //make new colors for new features by copypasta and editing in the hex codes. (r,g,b,a)
     //assign the colors down in the renderColor function
-   public enum statusOptions {Inactive, Safe, Damaging, PushForward, PushBack, ChangeSpeed, Undeveloped }
+   public enum statusOptions {Inactive, Safe, TheEnd, Damaging, PushForward, PushBack, ChangeSpeed, Undeveloped }
     void Start ()
    { 
        renderer.material.shader = Shader.Find("Self-Illumin/Diffuse");
@@ -27,6 +28,10 @@ public class targetState : MonoBehaviour {
    }
     public void  applyEffects()
     {
+        if (currentStatus == statusOptions.TheEnd)
+        {
+            //incrament score && load next scene - make scene Application.LoadLevel(nextLevelName);
+        }
         if (currentStatus == statusOptions.Damaging)
         {
             //lose one life when moving onto
@@ -70,7 +75,7 @@ public class targetState : MonoBehaviour {
              //inactive default grey
             renderer.material.SetColor("_Color", Inactive);               
         }
-        if (currentStatus == statusOptions.Safe)
+        if (currentStatus == statusOptions.Safe || currentStatus == statusOptions.TheEnd)
         {            
                 //active safe green
             renderer.material.SetColor("_Color", Safe);
