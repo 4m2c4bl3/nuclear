@@ -9,7 +9,7 @@ public class drawLevel : MonoBehaviour
 
     playerMove[,] moveSets;
     
-    void Start()
+    void Awake ()
     {
         moveSets = new playerMove[layout.width, layout.height];
         instatiateLevel();
@@ -85,7 +85,7 @@ public class drawLevel : MonoBehaviour
                 Color curPoint = layout.GetPixel(curlineX, curlineY);
                 if (curPoint != dontInstantiate)
                 {
-                    GameObject transferPoint = Instantiate(pointSpawn.gameObject, new Vector3(curlineX, curlineY, 0) * 2, transform.rotation) as GameObject;
+                    GameObject transferPoint = Instantiate(pointSpawn.gameObject, new Vector3(curlineX, curlineY, 0) * 3, transform.rotation) as GameObject;
                     transferPoint.GetComponent<targetState>().setMe = curPoint;
                     transferPoint.tag = "inActive";
                     moveSets[curlineX, curlineY] = transferPoint.GetComponent<playerMove>();

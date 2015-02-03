@@ -21,8 +21,7 @@ public class startGame : MonoBehaviour {
     {
         playerStats.Player.lastMove = playerStats.moveDir.None;
         startG = this;
-        playerStats.Player.resetLife();
-        spawnPoint.GetComponent<playerMove>().isActive = true;        
+        playerStats.Player.resetLife();    
 
     }
 	
