@@ -5,13 +5,19 @@ public class playerMove : MonoBehaviour {
     //The "player movement" script. Says if the player is "on" this object or not, and moves the player around to other objects. 
     //Calls targetState effects to happen on move, handles targetState move effects.
     //Handles respawn move as well.
+    [HideInInspector]
     public GameObject upTarget;
+    [HideInInspector]
     public GameObject downTarget;
+    [HideInInspector]
     public GameObject leftTarget;
+    [HideInInspector]
     public GameObject rightTarget;
+    [HideInInspector]
     public bool _isActive;
     bool pushing;
     bool respawning;
+    [HideInInspector]
     public string pushType = "none";
     Timer delay = new Timer();
 
@@ -162,19 +168,19 @@ public class playerMove : MonoBehaviour {
                     moveTo(leftTarget);
                 }
 
-                if (Input.GetKeyDown(KeyCode.RightArrow) && canMove(rightTarget) == true)
+                else if (Input.GetKeyDown(KeyCode.RightArrow) && canMove(rightTarget) == true)
                 {
                     playerStats.Player.lastMove = playerStats.moveDir.Right;
                     moveTo(rightTarget);
                 }
 
-                if (Input.GetKeyDown(KeyCode.UpArrow) && canMove(upTarget) == true)
+                else if (Input.GetKeyDown(KeyCode.UpArrow) && canMove(upTarget) == true)
                 {
                     playerStats.Player.lastMove = playerStats.moveDir.Up; 
                     moveTo(upTarget);               
                 }
 
-                if (Input.GetKeyDown(KeyCode.DownArrow) && canMove(downTarget) == true)
+                else if (Input.GetKeyDown(KeyCode.DownArrow) && canMove(downTarget) == true)
                 {
                     playerStats.Player.lastMove = playerStats.moveDir.Down;
                     moveTo(downTarget);

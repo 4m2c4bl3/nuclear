@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class doTheWholeJob : MonoBehaviour
+public class drawLevel : MonoBehaviour
 {
     public Texture2D layout;
     public GameObject pointSpawn;
@@ -11,8 +11,8 @@ public class doTheWholeJob : MonoBehaviour
     
     void Start()
     {
-        moveSets = new playerMove[layout.width, layout.height]; 
-        drawLevel();
+        moveSets = new playerMove[layout.width, layout.height];
+        instatiateLevel();
         linkLevel();        
     }
 
@@ -76,7 +76,7 @@ public class doTheWholeJob : MonoBehaviour
         return false;
     }
     
-    void drawLevel()
+    void instatiateLevel()
     {
         for (int curlineX = 0; curlineX < layout.width; curlineX++)
         {

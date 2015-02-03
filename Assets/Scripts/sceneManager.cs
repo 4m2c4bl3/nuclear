@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class sceneManager : MonoBehaviour {
-
+    [HideInInspector]
     public allScenes curScene = allScenes.None;
     public static sceneManager manager;
 

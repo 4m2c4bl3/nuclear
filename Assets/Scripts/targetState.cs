@@ -3,12 +3,15 @@ using System.Collections;
 
 public class targetState : MonoBehaviour {
     //Tells the target what effects it should do.
-    public statusOptions currentStatus;
+   [HideInInspector]
+   public statusOptions currentStatus;
    Timer buffer = new Timer();
    //float damageTick = 3f;
    public float speedChange = 0.2f;
+   [HideInInspector]
    public GameObject lastTarget;
    GameObject teleportOption;
+   [HideInInspector]
    public Color setMe;
    public Color spawnMe = new Color32(102, 156, 86, 255);
    public Color Inactive = new Color32(58, 58, 58, 255);
@@ -17,6 +20,7 @@ public class targetState : MonoBehaviour {
    public Color PushForward = new Color32(84, 255, 253, 255);
    public Color PushBack = new Color32(250, 255, 15, 255);
    public Color ChangeSpeed = new Color32(233, 96, 49, 255);
+   [HideInInspector]
    public string nextLevelName = null;
 
     //make new colors for new features by copypasta and editing in the hex codes. (r,g,b,a)
