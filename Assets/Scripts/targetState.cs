@@ -9,6 +9,8 @@ public class targetState : MonoBehaviour {
    public float speedChange = 0.2f;
    public GameObject lastTarget;
    GameObject teleportOption;
+   public Color setMe;
+   public Color spawnMe = new Color32(102, 156, 86, 255);
    public Color Inactive = new Color32(58, 58, 58, 255);
    public Color Safe = new Color32(59, 255, 0, 255);
    public Color Damaging = new Color32(239, 0, 112, 255);
@@ -24,8 +26,39 @@ public class targetState : MonoBehaviour {
    { 
        renderer.material.shader = Shader.Find("Self-Illumin/Diffuse");
        buffer.setTimer(3);
+       setStatus();
        resetColor();        
    }
+    void setStatus()
+    {
+        if (setMe == spawnMe)
+        {
+            startGame.startG.spawnPoint = gameObject;
+            gameObject.GetComponent<playerMove>().isActive = true;
+            currentStatus = statusOptions.Safe;
+        }
+        if (setMe == Inactive)
+        {
+            currentStatus = statusOptions.Inactive;
+        } 
+        if (setMe == Safe)
+        {
+            currentStatus = statusOptions.Safe;
+        }
+        if (setMe == Damaging)
+        {
+            currentStatus = statusOptions.Damaging;
+        }
+        if (setMe == PushForward)
+        {
+            currentStatus = statusOptions.PushForward;
+        }
+        if (setMe == PushBack)
+        {
+            currentStatus = statusOptions.PushBack;
+        } 
+       
+    }
     public void  applyEffects()
     {
         if (currentStatus == statusOptions.TheEnd)
