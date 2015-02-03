@@ -87,6 +87,7 @@ public class drawLevel : MonoBehaviour
                 {
                     GameObject transferPoint = Instantiate(pointSpawn.gameObject, new Vector3(curlineX, curlineY, 0) * 2, transform.rotation) as GameObject;
                     transferPoint.GetComponent<targetState>().setMe = curPoint;
+                    transferPoint.tag = "inActive";
                     moveSets[curlineX, curlineY] = transferPoint.GetComponent<playerMove>();
 
                 }

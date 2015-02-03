@@ -32,6 +32,14 @@ public class playerMove : MonoBehaviour {
         {
             delay.setTimer(playerStats.Player.movePause); //SOLVED THE WEIRD JUMPING! AAHAAAAAA
             (gameObject.GetComponent("Halo") as Behaviour).enabled = value;
+            if (value == true)
+            {
+                gameObject.tag = "Active";
+            }
+            else if (value == false)
+            {
+                gameObject.tag = "inActive";
+            }
             _isActive = value;
         }
     }
