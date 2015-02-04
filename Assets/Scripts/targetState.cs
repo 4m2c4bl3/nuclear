@@ -77,10 +77,12 @@ public class targetState : MonoBehaviour {
         if (currentStatus == statusOptions.TheEnd)
         {
             //incrament score && load next scene - make scene Application.LoadLevel(nextLevelName);
+            soundManager.m.Play(2);
         }
         if (currentStatus == statusOptions.Damaging)
         {
             //lose one life when moving onto
+            soundManager.m.Play(5);
             playerStats.Player.looseLife();
         }
         if (currentStatus == statusOptions.PushForward)

@@ -21,7 +21,8 @@ public class startGame : MonoBehaviour {
     {
         playerStats.Player.lastMove = playerStats.moveDir.None;
         startG = this;
-        playerStats.Player.resetLife();    
+        playerStats.Player.resetLife();
+        soundManager.m.Play(1);  
 
     }
 	

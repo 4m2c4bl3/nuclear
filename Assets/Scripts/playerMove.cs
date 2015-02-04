@@ -86,7 +86,7 @@ public class playerMove : MonoBehaviour {
 
     void moveTo(GameObject target)
     {
-        isActive = false;      
+        isActive = false;        
         target.GetComponent<playerMove>().isActive = true;
         target.GetComponent<targetState>().applyEffects();
     }
@@ -126,21 +126,25 @@ public class playerMove : MonoBehaviour {
                 {
                     lastMoveSet(upTarget);
                     moveTo(upTarget);
+                    soundManager.m.Play(7);
                 } 
                 if (type == "rightBumper" && canMove(downTarget) == true)
                 {
                     lastMoveSet(downTarget);
                     moveTo(downTarget);
+                    soundManager.m.Play(7);
                 }
                 if (type == "back" && canMove(rightTarget) == true)
                 {
                     lastMoveSet(rightTarget);
                     moveTo(rightTarget);
+                    soundManager.m.Play(7);
                 }
                 if (type == "forward" && canMove(leftTarget) == true)
                 {
                     lastMoveSet(leftTarget);
                     moveTo(leftTarget);
+                    soundManager.m.Play(6);
                 }
                 pushing = false;
             }
@@ -150,21 +154,25 @@ public class playerMove : MonoBehaviour {
                 {
                     lastMoveSet(downTarget);
                     moveTo(downTarget);
+                    soundManager.m.Play(7);
                 }
                 if (type == "rightBumper" && canMove(upTarget) == true)
                 {
                     lastMoveSet(upTarget);
                     moveTo(upTarget);
+                    soundManager.m.Play(7);
                 }
                 if (type == "back" && canMove(leftTarget) == true)
                 {
                     lastMoveSet(leftTarget);
                     moveTo(leftTarget);
+                    soundManager.m.Play(7);
                 }
                 if (type == "forward" && canMove(rightTarget) == true)
                 {
                     lastMoveSet(rightTarget);
                     moveTo(rightTarget);
+                    soundManager.m.Play(6);
                 }
                 pushing = false;
             }
@@ -174,21 +182,25 @@ public class playerMove : MonoBehaviour {
                 {
                     lastMoveSet(leftTarget);
                     moveTo(leftTarget);
+                    soundManager.m.Play(7);
                 }
                 if (type == "rightBumper" && canMove(rightTarget) == true)
                 {
                     lastMoveSet(rightTarget);
                     moveTo(rightTarget);
+                    soundManager.m.Play(7);
                 }
                 if (type == "back" && canMove(downTarget) == true)
                 {
                     lastMoveSet(downTarget);
                     moveTo(downTarget);
+                    soundManager.m.Play(7);
                 }
                 if (type == "forward" && canMove(upTarget) == true)
                 {
                     lastMoveSet(upTarget);
                     moveTo(upTarget);
+                    soundManager.m.Play(6);
                 }
                 pushing = false;
             }
@@ -198,21 +210,25 @@ public class playerMove : MonoBehaviour {
                 {
                     lastMoveSet(rightTarget);
                     moveTo(rightTarget);
+                    soundManager.m.Play(7);
                 }
                 if (type == "rightBumper" && canMove(leftTarget) == true)
                 {
                     lastMoveSet(leftTarget);
                     moveTo(leftTarget);
+                    soundManager.m.Play(7);
                 }
                 if (type == "back" && canMove(upTarget) == true)
                 {
                     lastMoveSet(upTarget);
                     moveTo(upTarget);
+                    soundManager.m.Play(7);
                 }
                 if (type == "forward" && canMove(downTarget) == true)
                 {
                     lastMoveSet(downTarget);
                     moveTo(downTarget);
+                    soundManager.m.Play(6);
                 } 
                 pushing = false;
             }
@@ -230,6 +246,7 @@ public class playerMove : MonoBehaviour {
             if (playerStats.Player.Lives <= 0)
             {
                 playerStats.Player.isDead();
+                soundManager.m.Play(3);
                 reSpawn();
             }
 
@@ -239,24 +256,28 @@ public class playerMove : MonoBehaviour {
                 {
                     lastMoveSet(leftTarget);
                     moveTo(leftTarget);
+                    soundManager.m.Play(4);
                 }
 
                 else if (Input.GetKeyDown(KeyCode.RightArrow) && canMove(rightTarget) == true)
                 {
                     lastMoveSet(rightTarget);
                     moveTo(rightTarget);
+                    soundManager.m.Play(4);
                 }
 
                 else if (Input.GetKeyDown(KeyCode.UpArrow) && canMove(upTarget) == true)
                 {
                     lastMoveSet(upTarget);
-                    moveTo(upTarget);               
+                    moveTo(upTarget);
+                    soundManager.m.Play(4);
                 }
 
                 else if (Input.GetKeyDown(KeyCode.DownArrow) && canMove(downTarget) == true)
                 {
                     lastMoveSet(downTarget);
                     moveTo(downTarget);
+                    soundManager.m.Play(4);
                 }
             }                       
         }      
