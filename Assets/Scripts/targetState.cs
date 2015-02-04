@@ -14,6 +14,7 @@ public class targetState : MonoBehaviour {
    [HideInInspector]
    public Color setMe;
    public Color spawnMe = new Color32(102, 156, 86, 255);
+   public Color saveMe = new Color32(179, 179, 179, 255);
    public Color Inactive = new Color32(58, 58, 58, 255);
    public Color Safe = new Color32(59, 255, 0, 255);
    public Color Damaging = new Color32(239, 0, 112, 255);
@@ -23,6 +24,7 @@ public class targetState : MonoBehaviour {
    public Color RightBumper = new Color32(132, 41, 144, 255);
    [HideInInspector]
    public string nextLevelName = null;
+   bool savePoint = false;
 
     //make new colors for new features by copypasta and editing in the hex codes. (r,g,b,a)
     //assign the colors down in the renderColor function
@@ -36,6 +38,11 @@ public class targetState : MonoBehaviour {
    }
     void setStatus()
     {
+        if (setMe == saveMe)
+        {
+            savePoint = true;
+            currentStatus = statusOptions.Safe;
+        }
         if (setMe == spawnMe)
         {
             startGame.startG.spawnPoint = gameObject;
@@ -74,6 +81,10 @@ public class targetState : MonoBehaviour {
     }
     public void  applyEffects()
     {
+        if (savePoint == true)
+        {
+            startGame.startG.spawnPoint = gameObject;
+        }
         if (currentStatus == statusOptions.TheEnd)
         {
             //incrament score && load next scene - make scene Application.LoadLevel(nextLevelName);
