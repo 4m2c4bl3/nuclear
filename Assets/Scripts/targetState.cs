@@ -19,13 +19,14 @@ public class targetState : MonoBehaviour {
    public Color Damaging = new Color32(239, 0, 112, 255);
    public Color PushForward = new Color32(84, 255, 253, 255);
    public Color PushBack = new Color32(250, 255, 15, 255);
-   public Color ChangeSpeed = new Color32(233, 96, 49, 255);
+   public Color LeftBumper = new Color32(233, 96, 49, 255);
+   public Color RightBumper = new Color32(233, 96, 49, 255);
    [HideInInspector]
    public string nextLevelName = null;
 
     //make new colors for new features by copypasta and editing in the hex codes. (r,g,b,a)
     //assign the colors down in the renderColor function
-   public enum statusOptions {Inactive, Safe, TheEnd, Damaging, PushForward, PushBack, ChangeSpeed, Undeveloped }
+   public enum statusOptions {Inactive, Safe, TheEnd, Damaging, PushForward, PushBack, LeftBumper, RightBumper, ChangeSpeed, Undeveloped }
     void Start ()
    { 
        renderer.material.shader = Shader.Find("Self-Illumin/Diffuse");
@@ -60,6 +61,14 @@ public class targetState : MonoBehaviour {
         if (setMe == PushBack)
         {
             currentStatus = statusOptions.PushBack;
+        }
+        if (setMe == LeftBumper)
+        {
+            currentStatus = statusOptions.LeftBumper;
+        }
+        if (setMe == RightBumper)
+        {
+            currentStatus = statusOptions.RightBumper;
         } 
        
     }
@@ -85,6 +94,17 @@ public class targetState : MonoBehaviour {
             //pushes players back where they came
             gameObject.GetComponent<playerMove>().pushType = "back";
             gameObject.GetComponent<playerMove>().movePush(gameObject.GetComponent<playerMove>().pushType); 
+        }
+        if (currentStatus == statusOptions.LeftBumper)
+        {
+            gameObject.GetComponent<playerMove>().pushType = "leftBumper"; //down>right left>up right>down up>left
+            gameObject.GetComponent<playerMove>().movePush(gameObject.GetComponent<playerMove>().pushType);
+        } 
+        if (currentStatus == statusOptions.RightBumper)
+        {
+            //pushes players back where they came
+            gameObject.GetComponent<playerMove>().pushType = "rightBumper"; // down>left left>down right>up up>right
+            gameObject.GetComponent<playerMove>().movePush(gameObject.GetComponent<playerMove>().pushType);
         }
         if (currentStatus == statusOptions.ChangeSpeed)
         {
@@ -136,11 +156,22 @@ public class targetState : MonoBehaviour {
         if (currentStatus == statusOptions.ChangeSpeed)
         {
             //special effect
-            renderer.material.SetColor("_Color", ChangeSpeed);
+           //renderer.material.SetColor("_Color", ChangeSpeed);
         }
         if (currentStatus == statusOptions.Undeveloped)
         {
 
+        }
+        if (currentStatus == statusOptions.LeftBumper)
+        {
+            //special effect
+            renderer.material.SetColor("_Color", LeftBumper);
+
+        }
+        if (currentStatus == statusOptions.RightBumper)
+        {
+            //special effect
+            renderer.material.SetColor("_Color", RightBumper);
         }
     }
     

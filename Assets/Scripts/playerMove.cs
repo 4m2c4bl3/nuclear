@@ -105,6 +105,14 @@ public class playerMove : MonoBehaviour {
         {
             if (playerStats.Player.lastMove == playerStats.moveDir.Left)
             {
+                if (type == "leftBumper" && canMove(upTarget) == true)
+                {
+                    moveTo(upTarget);
+                } 
+                if (type == "rightBumper" && canMove(downTarget) == true)
+                {
+                    moveTo(downTarget);
+                }
                 if (type == "back" && canMove(rightTarget) == true)
                 {
                     moveTo(rightTarget);
@@ -117,6 +125,14 @@ public class playerMove : MonoBehaviour {
             }
             if (playerStats.Player.lastMove == playerStats.moveDir.Right)
             {
+                if (type == "leftBumper" && canMove(downTarget) == true)
+                {
+                    moveTo(downTarget);
+                }
+                if (type == "rightBumper" && canMove(upTarget) == true)
+                {
+                    moveTo(upTarget);
+                }
                 if (type == "back" && canMove(leftTarget) == true)
                 {
                     moveTo(leftTarget);
@@ -129,6 +145,14 @@ public class playerMove : MonoBehaviour {
             }
             if (playerStats.Player.lastMove == playerStats.moveDir.Up)
             {
+                if (type == "leftBumper" && canMove(leftTarget) == true)
+                {
+                    moveTo(leftTarget);
+                }
+                if (type == "rightBumper" && canMove(rightTarget) == true)
+                {
+                    moveTo(rightTarget);
+                }
                 if (type == "back" && canMove(downTarget) == true)
                 {
                     moveTo(downTarget);
@@ -141,6 +165,14 @@ public class playerMove : MonoBehaviour {
             }
             if (playerStats.Player.lastMove == playerStats.moveDir.Down)
             {
+                if (type == "leftBumper" && canMove(rightTarget) == true)
+                {
+                    moveTo(rightTarget);
+                }
+                if (type == "rightBumper" && canMove(leftTarget) == true)
+                {
+                    moveTo(leftTarget);
+                }
                 if (type == "back" && canMove(upTarget) == true)
                 {
                     moveTo(upTarget);
