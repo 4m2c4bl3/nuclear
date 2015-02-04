@@ -50,7 +50,6 @@ public class playerMove : MonoBehaviour {
         {
             if (target.GetComponent<targetState>().currentStatus != targetState.statusOptions.Inactive)
             {
-                Debug.Log("Player can move.");
                 return true;       
             }
             return false;
@@ -85,11 +84,30 @@ public class playerMove : MonoBehaviour {
         }         
     }
 
-    public void moveTo(GameObject target)
+    void moveTo(GameObject target)
     {
-        isActive = false;
+        isActive = false;      
         target.GetComponent<playerMove>().isActive = true;
         target.GetComponent<targetState>().applyEffects();
+    }
+    public void lastMoveSet(GameObject target)
+    {
+        if (target == upTarget)
+        {
+            playerStats.Player.lastMove = playerStats.moveDir.Up;
+        }
+        else if (target == downTarget)
+        {
+            playerStats.Player.lastMove = playerStats.moveDir.Down;
+        }
+        else if (target == leftTarget)
+        {
+            playerStats.Player.lastMove = playerStats.moveDir.Left;
+        }
+        else if (target == rightTarget)
+        {
+            playerStats.Player.lastMove = playerStats.moveDir.Right;
+        }
     }
 
     public void movePush(string type)
@@ -97,7 +115,6 @@ public class playerMove : MonoBehaviour {
         if (pushing == false)
         {
         pushing = true;
-        Debug.Log(playerStats.Player.lastMove);
         delay.setTimer(playerStats.Player.movePause);
         }
         
@@ -107,78 +124,94 @@ public class playerMove : MonoBehaviour {
             {
                 if (type == "leftBumper" && canMove(upTarget) == true)
                 {
+                    lastMoveSet(upTarget);
                     moveTo(upTarget);
                 } 
                 if (type == "rightBumper" && canMove(downTarget) == true)
                 {
+                    lastMoveSet(downTarget);
                     moveTo(downTarget);
                 }
                 if (type == "back" && canMove(rightTarget) == true)
                 {
+                    lastMoveSet(rightTarget);
                     moveTo(rightTarget);
                 }
                 if (type == "forward" && canMove(leftTarget) == true)
                 {
+                    lastMoveSet(leftTarget);
                     moveTo(leftTarget);
                 }
                 pushing = false;
             }
-            if (playerStats.Player.lastMove == playerStats.moveDir.Right)
+            else if (playerStats.Player.lastMove == playerStats.moveDir.Right)
             {
                 if (type == "leftBumper" && canMove(downTarget) == true)
                 {
+                    lastMoveSet(downTarget);
                     moveTo(downTarget);
                 }
                 if (type == "rightBumper" && canMove(upTarget) == true)
                 {
+                    lastMoveSet(upTarget);
                     moveTo(upTarget);
                 }
                 if (type == "back" && canMove(leftTarget) == true)
                 {
+                    lastMoveSet(leftTarget);
                     moveTo(leftTarget);
                 }
                 if (type == "forward" && canMove(rightTarget) == true)
                 {
+                    lastMoveSet(rightTarget);
                     moveTo(rightTarget);
                 }
                 pushing = false;
             }
-            if (playerStats.Player.lastMove == playerStats.moveDir.Up)
+            else if (playerStats.Player.lastMove == playerStats.moveDir.Up)
             {
                 if (type == "leftBumper" && canMove(leftTarget) == true)
                 {
+                    lastMoveSet(leftTarget);
                     moveTo(leftTarget);
                 }
                 if (type == "rightBumper" && canMove(rightTarget) == true)
                 {
+                    lastMoveSet(rightTarget);
                     moveTo(rightTarget);
                 }
                 if (type == "back" && canMove(downTarget) == true)
                 {
+                    lastMoveSet(downTarget);
                     moveTo(downTarget);
                 }
                 if (type == "forward" && canMove(upTarget) == true)
                 {
+                    lastMoveSet(upTarget);
                     moveTo(upTarget);
                 }
                 pushing = false;
             }
-            if (playerStats.Player.lastMove == playerStats.moveDir.Down)
+            else if (playerStats.Player.lastMove == playerStats.moveDir.Down)
             {
                 if (type == "leftBumper" && canMove(rightTarget) == true)
                 {
+                    lastMoveSet(rightTarget);
                     moveTo(rightTarget);
                 }
                 if (type == "rightBumper" && canMove(leftTarget) == true)
                 {
+                    lastMoveSet(leftTarget);
                     moveTo(leftTarget);
                 }
                 if (type == "back" && canMove(upTarget) == true)
                 {
+                    lastMoveSet(upTarget);
                     moveTo(upTarget);
                 }
                 if (type == "forward" && canMove(downTarget) == true)
                 {
+                    lastMoveSet(downTarget);
                     moveTo(downTarget);
                 } 
                 pushing = false;
@@ -204,25 +237,25 @@ public class playerMove : MonoBehaviour {
             {
                 if (Input.GetKeyDown(KeyCode.LeftArrow) && canMove(leftTarget) == true)
                 {
-                    playerStats.Player.lastMove = playerStats.moveDir.Left;
+                    lastMoveSet(leftTarget);
                     moveTo(leftTarget);
                 }
 
                 else if (Input.GetKeyDown(KeyCode.RightArrow) && canMove(rightTarget) == true)
                 {
-                    playerStats.Player.lastMove = playerStats.moveDir.Right;
+                    lastMoveSet(rightTarget);
                     moveTo(rightTarget);
                 }
 
                 else if (Input.GetKeyDown(KeyCode.UpArrow) && canMove(upTarget) == true)
                 {
-                    playerStats.Player.lastMove = playerStats.moveDir.Up; 
+                    lastMoveSet(upTarget);
                     moveTo(upTarget);               
                 }
 
                 else if (Input.GetKeyDown(KeyCode.DownArrow) && canMove(downTarget) == true)
                 {
-                    playerStats.Player.lastMove = playerStats.moveDir.Down;
+                    lastMoveSet(downTarget);
                     moveTo(downTarget);
                 }
             }                       

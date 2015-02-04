@@ -19,8 +19,8 @@ public class targetState : MonoBehaviour {
    public Color Damaging = new Color32(239, 0, 112, 255);
    public Color PushForward = new Color32(84, 255, 253, 255);
    public Color PushBack = new Color32(250, 255, 15, 255);
-   public Color LeftBumper = new Color32(233, 96, 49, 255);
-   public Color RightBumper = new Color32(233, 96, 49, 255);
+   public Color LeftBumper = new Color32(219, 136, 39, 255);
+   public Color RightBumper = new Color32(132, 41, 144, 255);
    [HideInInspector]
    public string nextLevelName = null;
 
