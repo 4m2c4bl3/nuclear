@@ -25,9 +25,7 @@ public class targetState : MonoBehaviour {
    [HideInInspector]
    public string nextLevelName = null;
    bool savePoint = false;
-
-    //make new colors for new features by copypasta and editing in the hex codes. (r,g,b,a)
-    //assign the colors down in the renderColor function
+    
    public enum statusOptions {Inactive, Safe, TheEnd, Damaging, PushForward, PushBack, LeftBumper, RightBumper, ChangeSpeed, Undeveloped }
     void Start ()
    { 

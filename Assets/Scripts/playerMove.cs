@@ -20,6 +20,8 @@ public class playerMove : MonoBehaviour {
     [HideInInspector]
     public string pushType = "none";
     Timer delay = new Timer();
+    public GameObject rotater;
+    GameObject Atom;
 
     public bool isActive
     {
@@ -32,6 +34,7 @@ public class playerMove : MonoBehaviour {
         {
             delay.setTimer(playerStats.Player.movePause); //SOLVED THE WEIRD JUMPING! AAHAAAAAA
             (gameObject.GetComponent("Halo") as Behaviour).enabled = value;
+          
             if (value == true)
             {
                 gameObject.tag = "Active";
@@ -39,7 +42,8 @@ public class playerMove : MonoBehaviour {
             else if (value == false)
             {
                 gameObject.tag = "inActive";
-            }
+            }               
+            
             _isActive = value;
         }
     }
@@ -61,7 +65,18 @@ public class playerMove : MonoBehaviour {
 
     void Start()
     {
+        
         delay.setTimer(playerStats.Player.respawnPause);
+        if (isActive)
+        {
+            if (GameObject.FindGameObjectWithTag("Atom") == null)
+            {
+                Vector3 behere = new Vector3(0, 0, 0);
+                Atom = Instantiate(rotater.gameObject, behere, transform.rotation) as GameObject;
+                Atom.transform.parent = gameObject.transform;
+            }
+        }
+        
     }
 
     public void reSpawn()
@@ -86,7 +101,8 @@ public class playerMove : MonoBehaviour {
 
     void moveTo(GameObject target)
     {
-        isActive = false;        
+        Atom.transform.parent = target.transform;
+        isActive = false;
         target.GetComponent<playerMove>().isActive = true;
         target.GetComponent<targetState>().applyEffects();
     }
@@ -236,13 +252,19 @@ public class playerMove : MonoBehaviour {
         
     }
 
-	void Update () {
+    void Update()
+    {
         if (pushing)
         {
             movePush(pushType);
         }
         if (isActive)
         {
+            if (GameObject.FindGameObjectWithTag("Atom") != null)
+            {
+                Debug.Log("WEH");
+                Atom = GameObject.FindGameObjectWithTag("Atom");
+            }
             if (playerStats.Player.Lives <= 0)
             {
                 playerStats.Player.isDead();
