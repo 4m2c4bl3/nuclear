@@ -14,10 +14,12 @@ public class camMove : MonoBehaviour {
     public Color moveUp = new Color32(219, 136, 39, 255);
     public Color moveDown = new Color32(132, 41, 144, 255);
     public bool isManual = false;
+    Vector3 targetView;
+    Timer time = new Timer();
+    public bool start;
 
     void Start()
     {
-        transform.position = new Vector3 (transform.position.x, target.position.y, target.position.z - 10);
     }
     
     void setCam()
@@ -50,18 +52,34 @@ public class camMove : MonoBehaviour {
         if (gameObject.GetComponentInParent<camDirs>().forwardTarget != null)
         {
             gameObject.transform.parent = gameObject.GetComponentInParent<camDirs>().forwardTarget.transform;
+            targetView = new Vector3(gameObject.GetComponentInParent<camDirs>().forwardTarget.transform.position.x, gameObject.GetComponentInParent<camDirs>().forwardTarget.transform.position.y, - 10);
+            time.setTimer(0.5f);
         }
     }
 
     void Update()
     {
-      if (isManual == true)
+        if (start == false)
+        {
+            time.setTimer(0.5f);
+            setCam();
+            transform.position = new Vector3(gameObject.transform.parent.position.x, gameObject.transform.parent.position.y, -10);
+            start = true;
+        }
+
+      if (isManual == true && start == true)
       {
           manualMove();
       }
-      else if (isManual == false)
+      else if (isManual == false && start == true)
       {
-          autoMove();
+          if (time.Ok() == true)
+          {
+              autoMove();
+          } 
+          transform.position = Vector3.Lerp(
+           transform.position, targetView,
+          Time.deltaTime * smooth);
       }
     } 
 }

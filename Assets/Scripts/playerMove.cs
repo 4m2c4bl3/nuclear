@@ -262,7 +262,6 @@ public class playerMove : MonoBehaviour {
         {
             if (GameObject.FindGameObjectWithTag("Atom") != null)
             {
-                Debug.Log("WEH");
                 Atom = GameObject.FindGameObjectWithTag("Atom");
             }
             if (playerStats.Player.Lives <= 0)

@@ -58,45 +58,29 @@ public class drawLevel : MonoBehaviour
                           }
 
                       }
-                      else if (curCol == camMove.GetComponent<camMove>().camEnd)
+                      if (curCol == camMove.GetComponent<camMove>().camEnd)
                       {
-                          if (intCamDir == 0)
-                          {
-                              camPoints[curlineX, curlineY].backTarget = camPoints[curlineX, curlineY - 1].gameObject;
-                          }
-                          if (intCamDir == 1)
-                          {
-                              camPoints[curlineX, curlineY].backTarget = camPoints[curlineX - 1, curlineY].gameObject;
-                          }
-                          if (intCamDir == 2)
-                          {
-                              camPoints[curlineX, curlineY].backTarget = camPoints[curlineX, curlineY + 1].gameObject;
-                          }
-                          if (intCamDir == 3)
-                          {
-                              camPoints[curlineX, curlineY].backTarget = camPoints[curlineX + 1, curlineY].gameObject;
-                          }
 
                       }
                       else if (curCol == camMove.GetComponent<camMove>().moveUp)
                       {
                           camPoints[curlineX, curlineY].forwardTarget = camPoints[curlineX, curlineY + 1].gameObject;
-                          camPoints[curlineX, curlineY].backTarget = camPoints[curlineX, curlineY - 1].gameObject;
+                          //camPoints[curlineX, curlineY].backTarget = camPoints[curlineX, curlineY - 1].gameObject;
                       }
                       else if (curCol == camMove.GetComponent<camMove>().moveRight)
                       {
                           camPoints[curlineX, curlineY].forwardTarget = camPoints[curlineX + 1, curlineY].gameObject;
-                          camPoints[curlineX, curlineY].backTarget = camPoints[curlineX - 1, curlineY].gameObject;
+                          //camPoints[curlineX, curlineY].backTarget = camPoints[curlineX - 1, curlineY].gameObject;
                       }
                       else if (curCol == camMove.GetComponent<camMove>().moveDown)
                       {
                           camPoints[curlineX, curlineY].forwardTarget = camPoints[curlineX, curlineY - 1].gameObject;
-                          camPoints[curlineX, curlineY].backTarget = camPoints[curlineX, curlineY + 1].gameObject;
+                          //camPoints[curlineX, curlineY].backTarget = camPoints[curlineX, curlineY + 1].gameObject;
                       }
                       else if (curCol == camMove.GetComponent<camMove>().moveLeft)
                       {
                           camPoints[curlineX, curlineY].forwardTarget = camPoints[curlineX - 1, curlineY].gameObject;
-                          camPoints[curlineX, curlineY].backTarget = camPoints[curlineX + 1, curlineY].gameObject;
+                          //camPoints[curlineX, curlineY].backTarget = camPoints[curlineX + 1, curlineY].gameObject;
                       }
                     
                 }
