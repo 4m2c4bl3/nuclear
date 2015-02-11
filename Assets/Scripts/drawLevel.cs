@@ -4,6 +4,9 @@ using System.Collections;
 public class drawLevel : MonoBehaviour
 {
     public Texture2D layout;
+    public Texture2D layoutAlt;
+    public Texture2D layoutAlt2;
+    public Texture2D layoutTime;
     public Texture2D camLayout;
     public GameObject pointSpawn;
     public GameObject camSpawn;
@@ -212,10 +215,16 @@ public class drawLevel : MonoBehaviour
             for (int curlineY = 0; curlineY < layout.height; curlineY++)
             {
                 Color curPoint = layout.GetPixel(curlineX, curlineY);
+                Color altPoint = layoutAlt.GetPixel(curlineX, curlineY);
+                Color altPoint2 = layoutAlt2.GetPixel(curlineX, curlineY);
+                Color timePoint = layoutTime.GetPixel(curlineX, curlineY);
                 if (curPoint != dontInstantiate)
                 {
                     GameObject transferPoint = Instantiate(pointSpawn.gameObject, new Vector3(curlineX, curlineY, 0) * 3, transform.rotation) as GameObject;
                     transferPoint.GetComponent<targetState>().setMe = curPoint;
+                    transferPoint.GetComponent<targetState>().setMe2 = altPoint;
+                    transferPoint.GetComponent<targetState>().setMe3 = altPoint2;
+                    transferPoint.GetComponent<targetState>().timerColor = timePoint;
                     transferPoint.tag = "inActive";
                     moveSets[curlineX, curlineY] = transferPoint.GetComponent<playerMove>();
 

@@ -6,6 +6,7 @@ public class camMove : MonoBehaviour {
     Transform basePos;
     public Transform target;
     public float smooth = 5.0f;
+    public float camSpeed = 0.3f;
     bool targetSet = false;
     public Color camStart = new Color32(239, 0, 112, 255);
     public Color camEnd = new Color32(0, 0, 0, 255);
@@ -13,21 +14,21 @@ public class camMove : MonoBehaviour {
     public Color moveRight = new Color32(250, 255, 15, 255);
     public Color moveUp = new Color32(219, 136, 39, 255);
     public Color moveDown = new Color32(132, 41, 144, 255);
-    public bool isManual = false;
+    public bool isManual = true;
     Vector3 targetView;
     Timer time = new Timer();
-    public bool start;
-
-    void Start()
+    bool start;
+        
+    void Start ()
     {
+        transform.position = new Vector3(gameObject.transform.parent.position.x, gameObject.transform.parent.position.y, -10);
     }
-    
+
     void setCam()
     {
         target = GameObject.FindGameObjectWithTag("Active").transform;
         basePos = target;
         targetSet = true;
-
     }
 
     void manualMove()
@@ -53,7 +54,7 @@ public class camMove : MonoBehaviour {
         {
             gameObject.transform.parent = gameObject.GetComponentInParent<camDirs>().forwardTarget.transform;
             targetView = new Vector3(gameObject.GetComponentInParent<camDirs>().forwardTarget.transform.position.x, gameObject.GetComponentInParent<camDirs>().forwardTarget.transform.position.y, - 10);
-            time.setTimer(0.5f);
+            time.setTimer(camSpeed);
         }
     }
 
@@ -61,7 +62,7 @@ public class camMove : MonoBehaviour {
     {
         if (start == false)
         {
-            time.setTimer(0.5f);
+            time.setTimer(camSpeed);
             setCam();
             transform.position = new Vector3(gameObject.transform.parent.position.x, gameObject.transform.parent.position.y, -10);
             start = true;
