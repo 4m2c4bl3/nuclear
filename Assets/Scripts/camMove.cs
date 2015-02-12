@@ -14,7 +14,7 @@ public class camMove : MonoBehaviour {
     public Color moveRight = new Color32(250, 255, 15, 255);
     public Color moveUp = new Color32(219, 136, 39, 255);
     public Color moveDown = new Color32(132, 41, 144, 255);
-    public bool isManual = true;
+    public bool isManual = false;
     Vector3 targetView;
     Timer time = new Timer();
     bool start;

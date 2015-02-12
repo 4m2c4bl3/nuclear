@@ -3,8 +3,7 @@ using System.Collections;
 
 public class targetState : MonoBehaviour {
     //Tells the target what effects it should do.
-   [HideInInspector]
-   public statusOptions currentStatus;
+
    Timer buffer = new Timer();
    //float damageTick = 3f;
    public float speedChange = 0.2f;
@@ -37,20 +36,24 @@ public class targetState : MonoBehaviour {
    [HideInInspector]
    public string nextLevelName = null;
    bool savePoint = false;
-   statusOptions altStatus;
-   statusOptions altStatus2;
-   statusOptions altStatus3;
+
+   public statusOptions currentStatus;
+   public statusOptions altStatus;
+   public statusOptions altStatus2;
+   public statusOptions altStatus3;
+   public statusOptions prevOption;
    public float timerLength;
    Timer length = new Timer();
-
     
-   public enum statusOptions {Inactive, Safe, TheEnd, Damaging, PushForward, PushBack, LeftBumper, RightBumper, ChangeSpeed, Undeveloped }
+   public enum statusOptions {noSwitch, Inactive, Safe, TheEnd, Damaging, PushForward, PushBack, LeftBumper, RightBumper, ChangeSpeed, Undeveloped }
+
     void Start ()
    { 
        renderer.material.shader = Shader.Find("Self-Illumin/Diffuse");
        buffer.setTimer(3);
        setStatus();
-       resetColor();        
+       resetColor();
+       setTimer();
    }
 
     void setTimer()
@@ -62,18 +65,22 @@ public class targetState : MonoBehaviour {
         else if (timerColor == zeroPointThree)
         {
             timerLength = 0.3f;
+            length.setTimer(timerLength);
         }
         else if (timerColor == zeroPointFive)
         {
             timerLength = 0.5f;
+            length.setTimer(timerLength);
         }
         else if (timerColor == zeroPointEight)
         {
             timerLength = 0.8f;
+            length.setTimer(timerLength);
         }
         else if (timerColor == one)
         {
             timerLength = 1f;
+            length.setTimer(timerLength);
         }
     }
     void setStatus()
@@ -186,6 +193,7 @@ public class targetState : MonoBehaviour {
     }
     public void  applyEffects()
     {
+        
         if (savePoint == true)
         {
             startGame.startG.spawnPoint = gameObject;
@@ -276,10 +284,6 @@ public class targetState : MonoBehaviour {
             //special effect
            //renderer.material.SetColor("_Color", ChangeSpeed);
         }
-        if (currentStatus == statusOptions.Undeveloped)
-        {
-
-        }
         if (currentStatus == statusOptions.LeftBumper)
         {
             //special effect
@@ -293,6 +297,53 @@ public class targetState : MonoBehaviour {
         }
     }
     
+    void switchState ()
+    {
+         if (length.Ok() == true)
+            {
+                prevOption = currentStatus;
+
+                if (currentStatus == altStatus3)
+                {
+                    currentStatus = altStatus;
+                    resetColor();
+                }
+                else if (currentStatus == altStatus2)
+                {
+                    if (altStatus3 != statusOptions.noSwitch)
+                    {
+                        currentStatus = altStatus3;
+                        resetColor();
+                    }
+                    else
+                    {
+                        currentStatus = altStatus;
+                        resetColor();
+                    }
+                }
+                else if (currentStatus == altStatus)
+                {
+                    if (altStatus2 == statusOptions.noSwitch)
+                    {
+                        currentStatus = altStatus3;
+                        resetColor();
+                    }
+                    else
+                    {
+                        currentStatus = altStatus2;
+                        resetColor();
+                    }
+                }
+
+                if (currentStatus == statusOptions.noSwitch)
+                {
+                    currentStatus = prevOption;
+                    resetColor();
+                }
+                length.setTimer(timerLength);
+            }
+    }
+
     void Update ()
     {
         if (Input.GetKeyDown(KeyCode.Backspace))
@@ -301,9 +352,9 @@ public class targetState : MonoBehaviour {
             resetColor();
         }
 
-        if (timerLength != null)
+        if (timerColor != doesntChange)
         {
-            //stuff
+            switchState();
         }
 
         //if (gameObject.GetComponent<playerMove>().isActive == true && buffer.Ok() == true)

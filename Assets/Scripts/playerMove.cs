@@ -14,7 +14,7 @@ public class playerMove : MonoBehaviour {
     [HideInInspector]
     public GameObject rightTarget;
     [HideInInspector]
-    public bool _isActive;
+    bool _isActive;
     bool pushing;
     bool respawning;
     [HideInInspector]
