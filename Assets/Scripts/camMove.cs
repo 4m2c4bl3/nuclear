@@ -36,10 +36,7 @@ public class camMove : MonoBehaviour {
         { 
             targetSet = true; 
         }
-        if (isManual == false)
-        {
-            //gameObject.transform.parent =          ohhh shitttttt :(
-        }
+
         
     }
 
@@ -50,10 +47,8 @@ public class camMove : MonoBehaviour {
             setCam();
         }
         target = GameObject.FindGameObjectWithTag("Active").transform;
-        Vector3 targetView = new Vector3(target.position.x, basePos.position.y, target.position.z);
-         transform.position = Vector3.Lerp(
-          transform.position, targetView,
-         Time.deltaTime * smooth);
+        Vector3 targetView = new Vector3(target.position.x, basePos.position.y, camdist);
+        transform.position = Vector3.Lerp( transform.position, targetView, Time.deltaTime * smooth);
     }
 
     void autoMove()
