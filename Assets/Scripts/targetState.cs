@@ -3,8 +3,7 @@ using System.Collections;
 
 public class targetState : MonoBehaviour {
     //Tells the target what effects it should do.
-   [HideInInspector]
-   public statusOptions currentStatus;
+
    Timer buffer = new Timer();
    //float damageTick = 3f;
    public float speedChange = 0.2f;
@@ -12,7 +11,13 @@ public class targetState : MonoBehaviour {
    public GameObject lastTarget;
    GameObject teleportOption;
    [HideInInspector]
+   public Color timerColor;
+    [HideInInspector]
    public Color setMe;
+    [HideInInspector]
+   public Color setMe2;
+    [HideInInspector]
+   public Color setMe3;
    public Color spawnMe = new Color32(102, 156, 86, 255);
    public Color saveMe = new Color32(179, 179, 179, 255);
    public Color Inactive = new Color32(58, 58, 58, 255);
@@ -22,65 +27,173 @@ public class targetState : MonoBehaviour {
    public Color PushBack = new Color32(250, 255, 15, 255);
    public Color LeftBumper = new Color32(219, 136, 39, 255);
    public Color RightBumper = new Color32(132, 41, 144, 255);
+
+    public Color doesntChange = new Color32(255, 255, 255, 255);
+    public Color zeroPointThree = new Color32(188, 188, 188, 255);
+    public Color zeroPointFive = new Color32(112, 112, 112, 255);
+    public Color zeroPointEight = new Color32(67, 67, 67, 255);
+    public Color one = new Color32(20, 20, 20, 255);
    [HideInInspector]
    public string nextLevelName = null;
    bool savePoint = false;
 
-    //make new colors for new features by copypasta and editing in the hex codes. (r,g,b,a)
-    //assign the colors down in the renderColor function
-   public enum statusOptions {Inactive, Safe, TheEnd, Damaging, PushForward, PushBack, LeftBumper, RightBumper, ChangeSpeed, Undeveloped }
+   public statusOptions currentStatus;
+   public statusOptions altStatus;
+   public statusOptions altStatus2;
+   public statusOptions altStatus3;
+   public statusOptions prevOption;
+   public float timerLength;
+   Timer length = new Timer();
+    
+   public enum statusOptions {noSwitch, Inactive, Safe, TheEnd, Damaging, PushForward, PushBack, LeftBumper, RightBumper, ChangeSpeed, Undeveloped }
+
     void Start ()
    { 
        renderer.material.shader = Shader.Find("Self-Illumin/Diffuse");
        buffer.setTimer(3);
        setStatus();
-       resetColor();        
+       resetColor();
+       setTimer();
    }
+
+    void setTimer()
+    {
+        if (timerColor == doesntChange)
+        {
+
+        }
+        else if (timerColor == zeroPointThree)
+        {
+            timerLength = 0.3f;
+            length.setTimer(timerLength);
+        }
+        else if (timerColor == zeroPointFive)
+        {
+            timerLength = 0.5f;
+            length.setTimer(timerLength);
+        }
+        else if (timerColor == zeroPointEight)
+        {
+            timerLength = 0.8f;
+            length.setTimer(timerLength);
+        }
+        else if (timerColor == one)
+        {
+            timerLength = 1f;
+            length.setTimer(timerLength);
+        }
+    }
     void setStatus()
     {
         if (setMe == saveMe)
         {
             savePoint = true;
             currentStatus = statusOptions.Safe;
+            altStatus = statusOptions.Safe;
         }
         if (setMe == spawnMe)
         {
             startGame.startG.spawnPoint = gameObject;
             gameObject.GetComponent<playerMove>().isActive = true;
             currentStatus = statusOptions.Safe;
+            altStatus = statusOptions.Safe;
         }
         if (setMe == Inactive)
         {
             currentStatus = statusOptions.Inactive;
+            altStatus = statusOptions.Inactive;
+        }
+        if (setMe2 == Inactive)
+        {
+            altStatus2 = statusOptions.Inactive;
+        }
+        if (setMe3 == Inactive)
+        {
+            altStatus3 = statusOptions.Inactive;
         } 
         if (setMe == Safe)
         {
             currentStatus = statusOptions.Safe;
+            altStatus = statusOptions.Safe;
         }
+        if (setMe2 == Safe)
+        {
+            altStatus2 = statusOptions.Safe;
+        }
+        if (setMe3 == Safe)
+        {
+            altStatus3 = statusOptions.Safe;
+        } 
         if (setMe == Damaging)
         {
             currentStatus = statusOptions.Damaging;
+            altStatus = statusOptions.Damaging;
         }
+        if (setMe2 == Damaging)
+        {
+            altStatus2 = statusOptions.Damaging;
+        }
+        if (setMe3 == Damaging)
+        {
+            altStatus3 = statusOptions.Damaging;
+        }  
         if (setMe == PushForward)
         {
             currentStatus = statusOptions.PushForward;
+            altStatus = statusOptions.PushForward;
         }
+        if (setMe2 == PushForward)
+        {
+            altStatus2 = statusOptions.PushForward;
+        }
+        if (setMe3 == PushForward)
+        {
+            altStatus3 = statusOptions.PushForward;
+        } 
         if (setMe == PushBack)
         {
             currentStatus = statusOptions.PushBack;
+            altStatus = statusOptions.PushBack;
         }
+        if (setMe2 == PushBack)
+        {
+            altStatus2 = statusOptions.PushBack;
+        }
+        if (setMe3 == PushBack)
+        {
+            altStatus3 = statusOptions.PushBack;
+        } 
         if (setMe == LeftBumper)
         {
             currentStatus = statusOptions.LeftBumper;
+            altStatus = statusOptions.LeftBumper;
         }
+        if (setMe2 == LeftBumper)
+        {
+            altStatus2 = statusOptions.LeftBumper;
+        }
+        if (setMe3 == LeftBumper)
+        {
+            altStatus3 = statusOptions.LeftBumper;
+        } 
         if (setMe == RightBumper)
         {
             currentStatus = statusOptions.RightBumper;
-        } 
+            altStatus = statusOptions.RightBumper;
+        }
+        if (setMe2 == RightBumper)
+        {
+            altStatus2 = statusOptions.RightBumper;
+        }
+        if (setMe3 == RightBumper)
+        {
+            altStatus3 = statusOptions.RightBumper;
+        }  
        
     }
     public void  applyEffects()
     {
+        
         if (savePoint == true)
         {
             startGame.startG.spawnPoint = gameObject;
@@ -171,10 +284,6 @@ public class targetState : MonoBehaviour {
             //special effect
            //renderer.material.SetColor("_Color", ChangeSpeed);
         }
-        if (currentStatus == statusOptions.Undeveloped)
-        {
-
-        }
         if (currentStatus == statusOptions.LeftBumper)
         {
             //special effect
@@ -188,12 +297,64 @@ public class targetState : MonoBehaviour {
         }
     }
     
+    void switchState ()
+    {
+         if (length.Ok() == true)
+            {
+                prevOption = currentStatus;
+
+                if (currentStatus == altStatus3)
+                {
+                    currentStatus = altStatus;
+                    resetColor();
+                }
+                else if (currentStatus == altStatus2)
+                {
+                    if (altStatus3 != statusOptions.noSwitch)
+                    {
+                        currentStatus = altStatus3;
+                        resetColor();
+                    }
+                    else
+                    {
+                        currentStatus = altStatus;
+                        resetColor();
+                    }
+                }
+                else if (currentStatus == altStatus)
+                {
+                    if (altStatus2 == statusOptions.noSwitch)
+                    {
+                        currentStatus = altStatus3;
+                        resetColor();
+                    }
+                    else
+                    {
+                        currentStatus = altStatus2;
+                        resetColor();
+                    }
+                }
+
+                if (currentStatus == statusOptions.noSwitch)
+                {
+                    currentStatus = prevOption;
+                    resetColor();
+                }
+                length.setTimer(timerLength);
+            }
+    }
+
     void Update ()
     {
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
             Debug.Log("Refreshing colors.");
             resetColor();
+        }
+
+        if (timerColor != doesntChange)
+        {
+            switchState();
         }
 
         //if (gameObject.GetComponent<playerMove>().isActive == true && buffer.Ok() == true)
