@@ -91,8 +91,10 @@ public class playerMove : MonoBehaviour {
             if (startGame.startG.spawnPoint != this)
             {
                 isActive = false;
-            }      
+            }
             startGame.startG.spawnPoint.GetComponent<playerMove>().isActive = true;
+            Atom.transform.parent = startGame.startG.spawnPoint.transform;
+            camMove.cam.targetSet = false;
             playerStats.Player.resetLife();
             delay.setTimer(playerStats.Player.respawnPause);
             respawning = false;
