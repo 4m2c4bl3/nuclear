@@ -22,7 +22,8 @@ public class startGame : MonoBehaviour {
         playerStats.Player.lastMove = playerStats.moveDir.None;
         startG = this;
         playerStats.Player.resetLife();
-        soundManager.m.Play(1);  
+        soundManager.m.Play(1);
+        playerStats.Player.spawnPoint = spawnPoint;
 
     }
 	

@@ -14,6 +14,8 @@ public class playerStats : MonoBehaviour {
     public moveDir lastMove;
     int totalDeaths;
     int lostLives;
+    public GameObject spawnPoint;
+
     //int playerScore;  maybe?
 
     public enum moveDir { None, Up, Down, Left, Right}
