@@ -3,91 +3,58 @@ using System.Collections;
 
 public class camMove : MonoBehaviour {
 
-    Transform basePos;
-    public Transform target;
-    public float smooth = 5.0f;
-    public float camSpeed = 0.3f;
-    public bool targetSet = false;
-    public Color camStart = new Color32(239, 0, 112, 255);
-    public Color camEnd = new Color32(0, 0, 0, 255);
-    public Color moveLeft = new Color32(84, 255, 253, 255);
-    public Color moveRight = new Color32(250, 255, 15, 255);
-    public Color moveUp = new Color32(219, 136, 39, 255);
-    public Color moveDown = new Color32(132, 41, 144, 255);
-    public bool isManual = false;
-    Vector3 targetView;
-    Timer time = new Timer();
-    bool start;
-    public float camdist = -15;
+    public bool canMove = false;
+    float camSpeed = 1;
+    directions currentDir;
+    enum directions { left, right, down, stop };
     public static camMove cam;
-        
+    public float camDist = -15;
+    float camTranslate;
+    public Color sStart = new Color32(147, 147, 147, 255);
+    public Color Down = new Color32(237, 166, 28, 255);
+    public Color Left = new Color32(238, 28, 36, 255);
+    public Color Right = new Color32(237, 220, 28, 255);
+    public Color Stop = new Color32(20, 20, 20, 255);
+
     void Start ()
     {
-        transform.position = new Vector3(gameObject.transform.parent.position.x, gameObject.transform.parent.position.y, camdist);
         cam = this;
     }
 
-    public void setCam()
+    void moveCam ()
     {
-        target = GameObject.FindGameObjectWithTag("Active").transform;
-        basePos = target;
-
-        if (targetSet == false)
-        { 
-            targetSet = true; 
-        }
-
-        
-    }
-
-    void manualMove()
-    {
-         if (targetSet == false)
+        if (currentDir == directions.left)
         {
-            setCam();
+            transform.Translate(Vector3.left * camTranslate);
         }
-        target = GameObject.FindGameObjectWithTag("Active").transform;
-        Vector3 targetView = new Vector3(target.position.x, basePos.position.y, camdist);
-        transform.position = Vector3.Lerp( transform.position, targetView, Time.deltaTime * smooth);
-    }
-
-    void autoMove()
-    {
-        if (targetSet == false)
+        else if (currentDir == directions.right)
         {
-            setCam();
+            transform.Translate(Vector3.right * camTranslate);
         }
-        if (gameObject.GetComponentInParent<camDirs>().forwardTarget != null)
+        else if (currentDir == directions.down)
         {
-            gameObject.transform.parent = gameObject.GetComponentInParent<camDirs>().forwardTarget.transform;
-            targetView = new Vector3(gameObject.GetComponentInParent<camDirs>().forwardTarget.transform.position.x, gameObject.GetComponentInParent<camDirs>().forwardTarget.transform.position.y, camdist);
-            time.setTimer(camSpeed);
+            transform.Translate(Vector3.down * camTranslate);
         }
     }
 
-    void Update()
+    void OnCollisionEnter(Collision col)
     {
-        if (start == false)
+
+    }
+
+    void speedUpdate ()
+    {
+        camTranslate = camSpeed * Time.deltaTime; 
+    }
+
+    void Update ()
+    {
+        if (canMove)
         {
-            time.setTimer(camSpeed);
-            setCam();
-            transform.position = new Vector3(gameObject.transform.parent.position.x, gameObject.transform.parent.position.y, camdist);
-            start = true;
+            moveCam();
         }
 
-      if (isManual == true && start == true)
-      {
-          manualMove();
-      }
-      else if (isManual == false && start == true)
-      {
-          if (time.Ok() == true)
-          {
-              autoMove();
-          } 
-          transform.position = Vector3.Lerp(
-           transform.position, targetView,
-          Time.deltaTime * smooth);
-      }
-    } 
+        speedUpdate();
+    }
+
 }

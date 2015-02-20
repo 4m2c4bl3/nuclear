@@ -24,6 +24,7 @@ public class startGame : MonoBehaviour {
         playerStats.Player.resetLife();
         soundManager.m.Play(1);
         playerStats.Player.spawnPoint = spawnPoint;
+        camMove.cam.canMove = true;
 
     }
 	
