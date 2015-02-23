@@ -23,6 +23,7 @@ public class playerMove : MonoBehaviour {
     public GameObject rotater;
     GameObject Atom;
 
+
     public bool isActive
     {
         get
@@ -94,6 +95,7 @@ public class playerMove : MonoBehaviour {
             Atom.transform.parent = startGame.startG.spawnPoint.transform;
             playerStats.Player.resetLife();
             delay.setTimer(playerStats.Player.respawnPause);
+            playerStats.Player.totalLives--;
             respawning = false;
         }         
     }
@@ -264,12 +266,11 @@ public class playerMove : MonoBehaviour {
                 Atom = GameObject.FindGameObjectWithTag("Atom");
             }
             if (playerStats.Player.Lives <= 0)
-            {
-                playerStats.Player.isDead();
+            {                
                 reSpawn();
             }
 
-            if (delay.Ok() == true)
+            if (delay.Ok() == true && playerStats.Player.menuOpen == false)
             {
                 if (Input.GetKeyDown(KeyCode.LeftArrow) && canMove(leftTarget) == true)
                 {

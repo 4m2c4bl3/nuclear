@@ -20,33 +20,42 @@ public class soundManager : MonoBehaviour {
         sfx.Play();
     }
 
-    void OnLevelWasLoaded()
+    
+    public void bgMusic()
     {
-        if (Application.loadedLevelName != lastLevel)
-        {
-            bgMusic();
+            if (sceneManager.manager.curScene == sceneManager.allScenes.Level)
+            {
+                bgm.clip = sounds[8];
+                bgm.Play();
+                lastLevel = Application.loadedLevelName;
+
+            }
+
+            if (sceneManager.manager.curScene == sceneManager.allScenes.GameOver)
+            {
+                if (playerStats.Player.Lost)
+                {
+                    bgm.clip = sounds[9];
+                }
+                else
+                {
+                    bgm.clip = sounds[10];
+                }
+                bgm.Play();
+                lastLevel = Application.loadedLevelName;
         }        
     }
 
-    public void bgMusic()
-    {
-        if (Application.loadedLevelName == "title" || Application.loadedLevelName == "over")
+        void Update ()
         {
-            bgm.clip = sounds[8];
-            bgm.Play();
-            lastLevel = Application.loadedLevelName;
-
-        }
-        if (Application.loadedLevelName == "game")
-        {
-            bgm.clip = sounds[10];
-            bgm.Play();
-            lastLevel = Application.loadedLevelName;
+            if (Application.loadedLevelName != lastLevel)
+            {
+                bgMusic();
+            }
 
         }
 
-
-    }
+    
 
     public void loopPlay(int clip, bool on)
     {

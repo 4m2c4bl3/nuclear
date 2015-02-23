@@ -22,6 +22,7 @@ public class startGame : MonoBehaviour {
     {
         playerStats.Player.lastMove = playerStats.moveDir.None;
         playerStats.Player.resetLife();
+        playerStats.Player.totalLives = 5;
         playerStats.Player.spawnPoint = spawnPoint;
         soundManager.m.Play(1);
         camMove.cam.resetPlz = true;

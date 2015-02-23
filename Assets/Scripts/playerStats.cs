@@ -7,14 +7,16 @@ public class playerStats : MonoBehaviour {
     //can be called as a reference in any other script - use this for something that relates to the player, not the location it's in.
     //call using playerMove.Player.(function or w/e name goes here)
     public float Lives = 5;
+    public float totalLives = 5;
     public float maxLives = 5;
     public static playerStats Player;
     public float respawnPause = 2f;
     public float movePause = 0.2f;
     public moveDir lastMove;
-    int totalDeaths;
     int lostLives;
     public GameObject spawnPoint;
+    public bool menuOpen = false;
+    public bool Lost = true;
 
     //int playerScore;  maybe?
 
@@ -23,10 +25,6 @@ public class playerStats : MonoBehaviour {
     void Awake ()
     {
         Player = this;
-    }
-    public void isDead ()
-    {
-        totalDeaths++;
     }
 
     public void resetLife ()
@@ -41,11 +39,30 @@ public class playerStats : MonoBehaviour {
                Lives -= 1;
                lostLives++;
            }
-
-
     }
+          public void gameOver()
+          {
+              if (totalLives <= 0)
+              {
+                  Lost = true;
+              }
+              else
+              {
+                  Lost = false;
+              }
+
+              Application.LoadLevel("end_scene");
+
+          }
+
+  
     void Update ()
       {
+          if (totalLives <= 0)
+        {
+            gameOver();
+
+        }
         //playerScore = (1000 + 1000/level complete) - (lostlives) - (totalDeathsx100) ?? maybe + for hiting good powerups as well
       }
 }

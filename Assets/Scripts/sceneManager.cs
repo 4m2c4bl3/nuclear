@@ -16,10 +16,19 @@ public class sceneManager : MonoBehaviour {
 
     void Update ()
      {
-        if (Application.loadedLevelName == "demo_scene")
+         if (Application.loadedLevel == 0)
+         {
+             curScene = allScenes.Menu;
+         }
+        if (Application.loadedLevel == 1)
         {
             curScene = allScenes.Level;
         }
+        if (Application.loadedLevel == 2)
+        {
+            curScene = allScenes.Menu;
+        }
+        Debug.Log(Application.loadedLevel);
      }
 
 

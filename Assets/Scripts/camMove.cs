@@ -203,15 +203,15 @@ public class camMove : MonoBehaviour {
 
     void Update ()
     {
-        if (_Move)
+        if (_Move && playerStats.Player.menuOpen == false)
         {
             moveCam();
         }
-        if (resetPlz == true)
+        if (resetPlz == true && playerStats.Player.menuOpen == false)
         {
             resetCam();
         }
-        if (pauseTimer.inuse)
+        if (pauseTimer.inuse && playerStats.Player.menuOpen == false)
         {
             if (pauseTimer.Ok())
             {

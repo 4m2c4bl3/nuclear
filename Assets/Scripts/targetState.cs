@@ -27,6 +27,7 @@ public class targetState : MonoBehaviour {
    public Color PushBack = new Color32(250, 255, 15, 255);
    public Color LeftBumper = new Color32(219, 136, 39, 255);
    public Color RightBumper = new Color32(132, 41, 144, 255);
+   public Color gameWon = new Color32(0, 0, 0, 255);
 
    public Color doesntChange = new Color32(255, 255, 255, 255);
    public Color longPlusTime = new Color32(208, 208, 208, 255);
@@ -85,6 +86,10 @@ public class targetState : MonoBehaviour {
     }
     void setStatus()
     {
+        if (setMe == gameWon)
+        {
+            currentStatus = statusOptions.TheEnd;
+        }
         if (setMe == saveMe)
         {
             savePoint = true;
@@ -202,6 +207,7 @@ public class targetState : MonoBehaviour {
         {
             //incrament score && load next scene - make scene Application.LoadLevel(nextLevelName);
             soundManager.m.Play(2);
+            playerStats.Player.gameOver();
         }
         if (currentStatus == statusOptions.Damaging)
         {
