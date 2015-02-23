@@ -28,11 +28,11 @@ public class targetState : MonoBehaviour {
    public Color LeftBumper = new Color32(219, 136, 39, 255);
    public Color RightBumper = new Color32(132, 41, 144, 255);
 
-    public Color doesntChange = new Color32(255, 255, 255, 255);
-    public Color zeroPointThree = new Color32(188, 188, 188, 255);
-    public Color zeroPointFive = new Color32(112, 112, 112, 255);
-    public Color zeroPointEight = new Color32(67, 67, 67, 255);
-    public Color one = new Color32(20, 20, 20, 255);
+   public Color doesntChange = new Color32(255, 255, 255, 255);
+   public Color longPlusTime = new Color32(208, 208, 208, 255);
+   public Color longTime = new Color32(139, 139, 139, 255);
+   public Color shortTime = new Color32(64, 64, 64, 255);
+    public Color shortPlusTime = new Color32(0, 0, 0, 255);
    [HideInInspector]
    public string nextLevelName = null;
    bool savePoint = false;
@@ -62,24 +62,24 @@ public class targetState : MonoBehaviour {
         {
 
         }
-        else if (timerColor == zeroPointThree)
-        {
-            timerLength = 0.3f;
-            length.setTimer(timerLength);
-        }
-        else if (timerColor == zeroPointFive)
-        {
-            timerLength = 0.5f;
-            length.setTimer(timerLength);
-        }
-        else if (timerColor == zeroPointEight)
-        {
-            timerLength = 0.8f;
-            length.setTimer(timerLength);
-        }
-        else if (timerColor == one)
+        else if (timerColor == shortPlusTime)
         {
             timerLength = 1f;
+            length.setTimer(timerLength);
+        }
+        else if (timerColor == shortTime)
+        {
+            timerLength = 1.4f;
+            length.setTimer(timerLength);
+        }
+        else if (timerColor == longTime)
+        {
+            timerLength = 1.8f;
+            length.setTimer(timerLength);
+        }
+        else if (timerColor == longPlusTime)
+        {
+            timerLength = 2.2f;
             length.setTimer(timerLength);
         }
     }
@@ -293,12 +293,14 @@ public class targetState : MonoBehaviour {
         {
             //special effect
             renderer.material.SetColor("_Color", LeftBumper);
+            transform.FindChild("Orange").renderer.enabled = true;
 
         }
         if (currentStatus == statusOptions.RightBumper)
         {
             //special effect
             renderer.material.SetColor("_Color", RightBumper);
+            transform.FindChild("Purple").renderer.enabled = true;
         }
     }
     

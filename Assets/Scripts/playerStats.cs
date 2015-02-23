@@ -6,8 +6,8 @@ public class playerStats : MonoBehaviour {
     //Keeps track of the player's last moved direction.
     //can be called as a reference in any other script - use this for something that relates to the player, not the location it's in.
     //call using playerMove.Player.(function or w/e name goes here)
-    public int Lives = 5;
-    public int maxLives = 5;
+    public float Lives = 5;
+    public float maxLives = 5;
     public static playerStats Player;
     public float respawnPause = 2f;
     public float movePause = 0.2f;

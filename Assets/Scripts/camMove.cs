@@ -2,9 +2,10 @@
 using System.Collections;
 
 public class camMove : MonoBehaviour {
-
+    [HideInInspector]
     public bool _Move = false;
     public float camSpeed = 1;
+    [HideInInspector]
     public directions currentDir;
     public enum directions { right, left, down, stop };
     public static camMove cam;
@@ -22,12 +23,17 @@ public class camMove : MonoBehaviour {
     public Color Stop = new Color32(20, 20, 20, 255);
     Vector3 playerpos;
     public float deathBuffer = 3;
+    float camOffset = 4;
+    public float slow = 3;
+    public float med = 7;
+    public float fast = 10;
+    [HideInInspector]
     public bool resetPlz = false;
     Timer pauseTimer = new Timer();
     void Start ()
     {
         cam = this;
-        gameObject.transform.position = new Vector3 (transform.position.x, transform.position.y, camDist);
+        gameObject.transform.position = new Vector3 (transform.position.x + camOffset, transform.position.y, camDist);
     }
 
     void moveCam ()
@@ -65,7 +71,17 @@ public class camMove : MonoBehaviour {
     void resetCam ()
     {
         GameObject playerHere = GameObject.FindGameObjectWithTag("Active");
-        if (transform.position.x == playerHere.transform.position.x)
+        
+
+        if (currentDir == directions.down && transform.position.y == playerHere.transform.position.y)
+        {
+            if (pauseTimer.inuse == false)
+            {
+                pauseTimer.setTimer(playerStats.Player.respawnPause);
+            }
+            resetPlz = false;
+        }
+        else if (transform.position.x - camOffset == playerHere.transform.position.x)
         {
             if (pauseTimer.inuse == false)
             {
@@ -74,35 +90,85 @@ public class camMove : MonoBehaviour {
             resetPlz = false;
         }
 
-        else 
-        {            
+        else
+        {      
             _Move = false;
-            transform.position = new Vector3 (playerHere.transform.position.x, playerHere.transform.position.y, camDist);
+            transform.position = new Vector3(playerHere.transform.position.x + camOffset, playerHere.transform.position.y, camDist);
         }
     }
 
     void camPos ()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Active");
-        if (gameObject.transform.position.x >= player.transform.position.x)
+        if (currentDir == directions.right)
         {
-            camSpeed = 4;
+            GameObject player = GameObject.FindGameObjectWithTag("Active");
+            if (gameObject.transform.position.x - camOffset >= player.transform.position.x)
+            {
+                camSpeed = slow;
+            }
+            else if (gameObject.transform.position.x - camOffset < player.transform.position.x - 4)
+            {
+                camSpeed = fast;
+            }
+            else if (gameObject.transform.position.x - camOffset < player.transform.position.x)
+            {
+                camSpeed = med;
+            }
+
         }
-        else if (gameObject.transform.position.x < player.transform.position.x - 4)
+        if (currentDir == directions.left)
         {
-            camSpeed = 10;
+            GameObject player = GameObject.FindGameObjectWithTag("Active");
+            if (gameObject.transform.position.x - camOffset < player.transform.position.x)
+            {
+                camSpeed = slow;
+            }
+            else if (gameObject.transform.position.x - camOffset >= player.transform.position.x - 4)
+            {
+                camSpeed = fast;
+            }
+            else if (gameObject.transform.position.x - camOffset >= player.transform.position.x)
+            {
+                camSpeed = med;
+            }
+
         }
-        else if (gameObject.transform.position.x < player.transform.position.x)
+
+        if (currentDir == directions.down)
         {
-            camSpeed = 7;
+            GameObject player = GameObject.FindGameObjectWithTag("Active");
+            if (gameObject.transform.position.y < player.transform.position.y)
+            {
+                camSpeed = slow;
+            }
+            else if (gameObject.transform.position.y >= player.transform.position.y - 4)
+            {
+                camSpeed = med;
+            }
+            else if (gameObject.transform.position.y >= player.transform.position.x)
+            {
+                camSpeed = fast;
+            }
+
         }
+
 
     }
 
     void outOfBounds()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Active");
-        if (gameObject.transform.position.x >= player.transform.position.x + deathBuffer)
+        if (currentDir == directions.right && gameObject.transform.position.x - camOffset >= player.transform.position.x + deathBuffer)
+        {
+            playerStats.Player.Lives = 0;
+        }
+
+        if (currentDir == directions.left && gameObject.transform.position.x - camOffset <= player.transform.position.x + deathBuffer)
+        {
+            playerStats.Player.Lives = 0;
+        }
+
+        if (currentDir == directions.down && gameObject.transform.position.y <= player.transform.position.y - deathBuffer)
         {
             playerStats.Player.Lives = 0;
         }
@@ -113,6 +179,7 @@ public class camMove : MonoBehaviour {
     {
         if (col.gameObject.GetComponent<camDir>().dirGo == camDir.directions.left)
         {
+            transform.RotateAround(transform.position, transform.up, 0f);
             currentDir = directions.left;
         }
         if (col.gameObject.GetComponent<camDir>().dirGo == camDir.directions.right)

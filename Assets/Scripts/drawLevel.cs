@@ -13,7 +13,6 @@ public class drawLevel : MonoBehaviour
     public GameObject camMove;
     public Color dontInstantiate = new Color32(14, 0, 149, 255);
     public Color dontCamInstantiate = new Color32(255, 255, 255, 255);
-    float camZ;
 
     playerMove[,] moveSets;
     camDir[,] camPoints;
@@ -24,7 +23,6 @@ public class drawLevel : MonoBehaviour
         instatiateLevel();
         linkLevel();
         camPoints = new camDir[camLayout.width, camLayout.height];
-        camZ = camMove.GetComponent<camMove>().transform.position.z;
         instatiateCam();
     }
 
@@ -34,7 +32,6 @@ public class drawLevel : MonoBehaviour
          {
              for (int curlineY = 0; curlineY < layout.height; curlineY++)
              {
-                 Vector3 curPoint = new Vector3(curlineX, curlineY, 0);
                  Color curCol = camLayout.GetPixel(curlineX, curlineY);
                  if (curCol != dontCamInstantiate)
                  {
@@ -43,7 +40,7 @@ public class drawLevel : MonoBehaviour
 
                      if (curCol == camMove.GetComponent<camMove>().sStart)
                      {
-                         camMove.GetComponent<camMove>().transform.position = new Vector3 (camPoint.transform.position.x, camPoint.transform.position.y, camPoint.transform.position.y);
+                         camMove.GetComponent<camMove>().transform.position = new Vector3 (camPoint.transform.position.x + 4, camPoint.transform.position.y, camMove.GetComponent<camMove>().camDist);
                     }
                      else if (curCol == camMove.GetComponent<camMove>().Left)
                      {

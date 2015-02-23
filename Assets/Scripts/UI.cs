@@ -14,8 +14,8 @@ public class UI : MonoBehaviour {
         {
         GUI.color = lives;
 
-        GUI.BeginGroup(new Rect((Screen.width / 2) - 120, 0, lifeBar, 30));
-        GUI.Label(new Rect(0, 0, 296, 30), lifecounter);
+        GUI.BeginGroup(new Rect((Screen.width / 2) - 120, 0, lifeBar, 56));
+        GUI.Label(new Rect(0, 0, lifecounter.width, 56), lifecounter);
         GUI.EndGroup();
 
         }
@@ -31,9 +31,6 @@ public class UI : MonoBehaviour {
 
     void Update()
     {
-        lifeBar = ((playerStats.Player.Lives / playerStats.Player.maxLives) * 296);
-        Debug.Log(lifeBar);
-        Debug.Log(playerStats.Player.Lives);
-        Debug.Log(playerStats.Player.maxLives);
+        lifeBar = ((playerStats.Player.Lives / playerStats.Player.maxLives) * lifecounter.width);
     }
 }
