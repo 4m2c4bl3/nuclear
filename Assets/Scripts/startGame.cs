@@ -16,16 +16,16 @@ public class startGame : MonoBehaviour {
         {
                 GameObject statsAndDisplay = Instantiate(sad.gameObject, transform.position, transform.rotation) as GameObject;
         }
+        startG = this;
     }
-	void Start () 
+	void Start ()
     {
         playerStats.Player.lastMove = playerStats.moveDir.None;
-        startG = this;
         playerStats.Player.resetLife();
-        soundManager.m.Play(1);
         playerStats.Player.spawnPoint = spawnPoint;
-        camMove.cam.canMove = true;
-
+        soundManager.m.Play(1);
+        camMove.cam.resetPlz = true;
     }
-	
+
+    
 }

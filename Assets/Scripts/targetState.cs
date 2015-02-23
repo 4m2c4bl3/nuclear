@@ -192,8 +192,8 @@ public class targetState : MonoBehaviour {
        
     }
     public void  applyEffects()
-    {
-        
+    {        
+            buffer.setTimer(3);
         if (savePoint == true)
         {
             startGame.startG.spawnPoint = gameObject;
@@ -208,6 +208,11 @@ public class targetState : MonoBehaviour {
             //lose one life when moving onto
             soundManager.m.Play(5);
             playerStats.Player.looseLife();
+            if (playerStats.Player.Lives > 0)
+            {
+                gameObject.GetComponent<playerMove>().pushType = "back";
+                gameObject.GetComponent<playerMove>().movePush(gameObject.GetComponent<playerMove>().pushType); 
+            }
         }
         if (currentStatus == statusOptions.PushForward)
         {
@@ -307,6 +312,10 @@ public class targetState : MonoBehaviour {
                 {
                     currentStatus = altStatus;
                     resetColor();
+                    if (gameObject.GetComponent<playerMove>().isActive == true)
+                    {
+                        applyEffects();
+                    }
                 }
                 else if (currentStatus == altStatus2)
                 {
@@ -314,11 +323,19 @@ public class targetState : MonoBehaviour {
                     {
                         currentStatus = altStatus3;
                         resetColor();
+                        if (gameObject.GetComponent<playerMove>().isActive == true)
+                        {
+                            applyEffects();
+                        }
                     }
                     else
                     {
                         currentStatus = altStatus;
                         resetColor();
+                        if (gameObject.GetComponent<playerMove>().isActive == true)
+                        {
+                            applyEffects();
+                        }
                     }
                 }
                 else if (currentStatus == altStatus)
@@ -327,11 +344,19 @@ public class targetState : MonoBehaviour {
                     {
                         currentStatus = altStatus3;
                         resetColor();
+                        if (gameObject.GetComponent<playerMove>().isActive == true)
+                        {
+                            applyEffects();
+                        }
                     }
                     else
                     {
                         currentStatus = altStatus2;
                         resetColor();
+                        if (gameObject.GetComponent<playerMove>().isActive == true)
+                        {
+                            applyEffects();
+                        }
                     }
                 }
 
@@ -357,10 +382,10 @@ public class targetState : MonoBehaviour {
             switchState();
         }
 
-        //if (gameObject.GetComponent<playerMove>().isActive == true && buffer.Ok() == true)
-       // {
-            //applyEffects();
-       // }
+        if (gameObject.GetComponent<playerMove>().isActive == true && buffer.Ok() == true)
+        {
+            applyEffects();
+        }
     }
 
    

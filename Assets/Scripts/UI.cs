@@ -6,6 +6,7 @@ public class UI : MonoBehaviour {
     //Changes depending on what scene is up via sceneManager
     public Color lives = new Color32(59, 255, 0, 255);
     public Texture2D lifecounter;
+    float lifeBar;
     
     void OnGUI()
     {
@@ -13,23 +14,10 @@ public class UI : MonoBehaviour {
         {
         GUI.color = lives;
 
-        if (playerStats.Player.Lives == 3)
-        {
-            GUI.Label(new Rect((Screen.width / 2) - 30, 0, 30, 30), lifecounter);
-             GUI.Label(new Rect((Screen.width / 2), 0, 30, 30), lifecounter);
-             GUI.Label(new Rect((Screen.width / 2) + 30, 0, 30, 30), lifecounter);
-        }
+        GUI.BeginGroup(new Rect((Screen.width / 2) - 120, 0, lifeBar, 30));
+        GUI.Label(new Rect(0, 0, 296, 30), lifecounter);
+        GUI.EndGroup();
 
-        if (playerStats.Player.Lives == 2)
-        {
-            GUI.Label(new Rect((Screen.width / 2) - 30, 0, 30, 30), lifecounter);
-            GUI.Label(new Rect((Screen.width / 2), 0, 30, 30), lifecounter);
-        }
-
-        if (playerStats.Player.Lives == 1)
-        {
-            GUI.Label(new Rect((Screen.width / 2) - 30, 0, 30, 30), lifecounter);
-        }
         }
         if (sceneManager.manager.curScene == sceneManager.allScenes.Menu)
         {
@@ -40,4 +28,12 @@ public class UI : MonoBehaviour {
             //draw game over buttons
         }
 	}
+
+    void Update()
+    {
+        lifeBar = ((playerStats.Player.Lives / playerStats.Player.maxLives) * 296);
+        Debug.Log(lifeBar);
+        Debug.Log(playerStats.Player.Lives);
+        Debug.Log(playerStats.Player.maxLives);
+    }
 }

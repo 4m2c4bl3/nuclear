@@ -13,6 +13,7 @@ public class drawLevel : MonoBehaviour
     public GameObject camMove;
     public Color dontInstantiate = new Color32(14, 0, 149, 255);
     public Color dontCamInstantiate = new Color32(255, 255, 255, 255);
+    float camZ;
 
     playerMove[,] moveSets;
     camDir[,] camPoints;
@@ -23,7 +24,8 @@ public class drawLevel : MonoBehaviour
         instatiateLevel();
         linkLevel();
         camPoints = new camDir[camLayout.width, camLayout.height];
-        instatiateCam();      
+        camZ = camMove.GetComponent<camMove>().transform.position.z;
+        instatiateCam();
     }
 
     void instatiateCam()
@@ -36,16 +38,28 @@ public class drawLevel : MonoBehaviour
                  Color curCol = camLayout.GetPixel(curlineX, curlineY);
                  if (curCol != dontCamInstantiate)
                  {
-                     GameObject camPoint = Instantiate(camSpawn.gameObject, new Vector3(curlineX, curlineY, -1) * 3, transform.rotation) as GameObject;
+                     GameObject camPoint = Instantiate(camSpawn.gameObject, new Vector3(curlineX * 3, curlineY * 3, camMove.GetComponent<camMove>().camDist), transform.rotation) as GameObject;
                      camPoints[curlineX, curlineY] = camPoint.GetComponent<camDir>();
 
                      if (curCol == camMove.GetComponent<camMove>().sStart)
                      {
-                         camMove.GetComponent<camMove>().transform.position = camPoint.transform.position;
-                         }
+                         camMove.GetComponent<camMove>().transform.position = new Vector3 (camPoint.transform.position.x, camPoint.transform.position.y, camPoint.transform.position.y);
+                    }
                      else if (curCol == camMove.GetComponent<camMove>().Left)
                      {
-
+                         camPoint.GetComponent<camDir>().dirGo = camDir.directions.left;
+                     }
+                     else if (curCol == camMove.GetComponent<camMove>().Right)
+                     {
+                         camPoint.GetComponent<camDir>().dirGo = camDir.directions.right;
+                     }
+                     else if (curCol == camMove.GetComponent<camMove>().Down)
+                     {
+                         camPoint.GetComponent<camDir>().dirGo = camDir.directions.down;
+                     }
+                     else if (curCol == camMove.GetComponent<camMove>().Stop)
+                     {
+                         camPoint.GetComponent<camDir>().dirGo = camDir.directions.stop;
                      }
 
                  }

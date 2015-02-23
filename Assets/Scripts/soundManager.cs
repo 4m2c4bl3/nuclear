@@ -9,7 +9,7 @@ public class soundManager : MonoBehaviour {
     public static soundManager m;
     string lastLevel;
 
-    void Start()
+    void Awake()
     {
         m = this;
     }

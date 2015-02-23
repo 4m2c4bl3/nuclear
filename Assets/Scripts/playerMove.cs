@@ -58,14 +58,11 @@ public class playerMove : MonoBehaviour {
             }
             return false;
         }
-            return false;
-      
-
+            return false; 
     }
 
     void Start()
-    {
-        
+    {        
         delay.setTimer(playerStats.Player.respawnPause);
         if (isActive)
         {
@@ -75,8 +72,7 @@ public class playerMove : MonoBehaviour {
                 Atom = Instantiate(rotater.gameObject, behere, transform.rotation) as GameObject;
                 Atom.transform.parent = gameObject.transform;
             }
-        }
-        
+        }        
     }
 
     public void reSpawn()
@@ -84,6 +80,7 @@ public class playerMove : MonoBehaviour {
         if (respawning == false)
         {
             respawning = true;
+            soundManager.m.Play(3);
             delay.setTimer(playerStats.Player.respawnPause);
         }        
         if (delay.Ok() == true && respawning == true)
@@ -93,6 +90,7 @@ public class playerMove : MonoBehaviour {
                 isActive = false;
             }
             startGame.startG.spawnPoint.GetComponent<playerMove>().isActive = true;
+            camMove.cam.resetPlz = true;
             Atom.transform.parent = startGame.startG.spawnPoint.transform;
             playerStats.Player.resetLife();
             delay.setTimer(playerStats.Player.respawnPause);
@@ -268,7 +266,6 @@ public class playerMove : MonoBehaviour {
             if (playerStats.Player.Lives <= 0)
             {
                 playerStats.Player.isDead();
-                soundManager.m.Play(3);
                 reSpawn();
             }
 
