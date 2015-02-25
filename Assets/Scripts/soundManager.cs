@@ -52,10 +52,7 @@ public class soundManager : MonoBehaviour {
             {
                 bgMusic();
             }
-
-        }
-
-    
+        }        
 
     public void loopPlay(int clip, bool on)
     {
@@ -70,6 +67,5 @@ public class soundManager : MonoBehaviour {
         {
             sfx.loop = false;
         }
-
     }
 }

@@ -51,7 +51,7 @@ public class playerStats : MonoBehaviour {
                   Lost = false;
               }
 
-              Application.LoadLevel("end_scene");
+              Application.LoadLevel(2);
 
           }
 

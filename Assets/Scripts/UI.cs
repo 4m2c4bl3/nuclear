@@ -18,10 +18,6 @@ public class UI : MonoBehaviour {
         {
             "Resume", "Main Menu", "Quit"
         };
-    string[] mainMenu = new string[2] 
-        {
-            "New Game", "Quit"
-        };
 
     bool menuOpen
     {
@@ -69,7 +65,7 @@ public class UI : MonoBehaviour {
             {
                 soundManager.m.Play(0);
                 playerStats.Player.menuOpen = false;
-                Application.LoadLevel(0);
+                Application.LoadLevel(6);
 
             }
             if (GUI.Button(new Rect(0, 135, (Screen.width * 0.5f), 50), pauseMenu[2]))
@@ -85,80 +81,32 @@ public class UI : MonoBehaviour {
             GUI.EndGroup();
         }
 
-        }
-        if (sceneManager.manager.curScene == sceneManager.allScenes.Menu)
-        {
-            GUI.skin = menuSkin;
-            GUI.BeginGroup(new Rect((Screen.width / 4), (Screen.height / 4), ((Screen.width / 4) * 2), ((Screen.height / 4) * 2)));
-            GUI.Box(new Rect(0, 0, ((Screen.width / 4) * 2), ((Screen.height / 4) * 2)), "Reaktor");
-            if (GUI.Button(new Rect(0, 80, (Screen.width * 0.5f), 50), mainMenu[0]))
-            {
-                soundManager.m.Play(0);
-                Application.LoadLevel(1);
-
-            }
-            if (GUI.Button(new Rect(0, 135, (Screen.width * 0.5f), 50), mainMenu[1]))
-            {
-
-                soundManager.m.Play(0);
-                Application.Quit();
-#if UNITY_EDITOR
-                EditorApplication.isPlaying = false;
-#endif
-            }
-
-            GUI.EndGroup();
-        }        
-        if (sceneManager.manager.curScene == sceneManager.allScenes.GameOver)
-        {
-            if (playerStats.Player.Lost)
-            {
-                GUI.skin = menuSkin;
-                GUI.BeginGroup(new Rect((Screen.width / 4), (Screen.height / 4), ((Screen.width / 4) * 2), ((Screen.height / 4) * 2)));
-                GUI.Box(new Rect(0, 0, ((Screen.width / 4) * 2), ((Screen.height / 4) * 2)), "You Lost");
-                if (GUI.Button(new Rect(0, 80, (Screen.width * 0.5f), 50), mainMenu[0]))
-                {
-                    soundManager.m.Play(0);
-                    Application.LoadLevel(0);
-
-                }
-                if (GUI.Button(new Rect(0, 135, (Screen.width * 0.5f), 50), mainMenu[1]))
-                {
-
-                    soundManager.m.Play(0);
-                    Application.Quit();
-#if UNITY_EDITOR
-                    EditorApplication.isPlaying = false;
-#endif
-                }
-
-                GUI.EndGroup();
-            }
-            else
-            {
-                GUI.skin = menuSkin;
-                GUI.BeginGroup(new Rect((Screen.width / 4), (Screen.height / 4), ((Screen.width / 4) * 2), ((Screen.height / 4) * 2)));
-                GUI.Box(new Rect(0, 0, ((Screen.width / 4) * 2), ((Screen.height / 4) * 2)), "You Won!");
-                if (GUI.Button(new Rect(0, 80, (Screen.width * 0.5f), 50), mainMenu[0]))
-                {
-                    soundManager.m.Play(0);
-                    Application.LoadLevel(0);
-
-                }
-                if (GUI.Button(new Rect(0, 135, (Screen.width * 0.5f), 50), mainMenu[1]))
-                {
-
-                    soundManager.m.Play(0);
-                    Application.Quit();
-#if UNITY_EDITOR
-                    EditorApplication.isPlaying = false;
-#endif
-                }
-
-                GUI.EndGroup();
-            }
-        }
+        }     
+       
 	}
+
+    public void playGame ()
+    {
+        soundManager.m.Play(0);
+        Application.LoadLevel(4);
+    }
+    public void playGame4Real()
+    {
+        soundManager.m.Play(0);
+        Application.LoadLevel(1);
+    }
+
+    public void mainMenu()
+    {
+        soundManager.m.Play(0);
+        Application.LoadLevel(0);
+    }
+
+    public void creditPage()
+    {
+        soundManager.m.Play(0);
+        Application.LoadLevel(3);
+    }
 
 
     void drawTokens(Texture2D obj, float var, float topAlign)

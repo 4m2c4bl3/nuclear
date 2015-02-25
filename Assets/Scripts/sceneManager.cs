@@ -16,15 +16,15 @@ public class sceneManager : MonoBehaviour {
 
     void Update ()
      {
-         if (Application.loadedLevel == 0)
-         {
-             curScene = allScenes.Menu;
-         }
         if (Application.loadedLevel == 1)
         {
             curScene = allScenes.Level;
         }
-        if (Application.loadedLevel == 2)
+        else if (Application.loadedLevel == 2)
+        {
+            curScene = allScenes.GameOver;
+        }
+        else
         {
             curScene = allScenes.Menu;
         }
